@@ -78,7 +78,7 @@ if data is not None:
     col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
     offset=len(appdata_main)-periods_input
-    app_data=appdata_main.copy()
+    appdata=appdata_main.copy()
     typeOfDay_cat = appdata[['typeOfDay']]
 
     typeOfDay_cat_encoder = OneHotEncoder(sparse=False)
