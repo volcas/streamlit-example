@@ -24,59 +24,60 @@ data = st.file_uploader('Upload first file here',type='csv')
 
 data2 = st.file_uploader('Upload second file here',type='csv')
 
-if data is not None and data2 is not None:
-    df_new = pd.read_csv(data)
-    extra=pd.read_csv(data2)
-    appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
-
-    
-    appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
-#     st.write(data)
-    
-    max_date = appdata_main['Datetime'].max()
-
-    
-    select_tg = st.sidebar.selectbox('What TG Level?',
-                                    ['2-12_male','2-12_female','13-21_male','13-21_female',
-                                     '22-30_male','22-30_female','31-40_male','31-40_female',
-                                     '41-50_male','41-50_female','51-60_male','51-60_female',
-                                     '61+_male','61+_female'])    
+while True:
+    if data is not None and data2 is not None:
+        df_new = pd.read_csv(data)
+        extra=pd.read_csv(data2)
+        appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
 
 
+        appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
+    #     st.write(data)
 
-    with open('model_'+select_tg+'.pkl', 'rb') as f:
-        svr = pickle.load(f)
+        max_date = appdata_main['Datetime'].max()
 
-    team_list1=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-    select_team1 = st.sidebar.selectbox('Select Team 1',
-                                    team_list1)    
-    team_list2=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-    team_list2.remove(select_team1)
-    select_team2 = st.sidebar.selectbox('Select Team 2',
-                                    team_list2)   
 
-    region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
-           'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
-           'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
-           'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
-
-    select_region= st.sidebar.selectbox('Select Region',
-                                    region_list)
+        select_tg = st.sidebar.selectbox('What TG Level?',
+                                        ['2-12_male','2-12_female','13-21_male','13-21_female',
+                                         '22-30_male','22-30_female','31-40_male','31-40_female',
+                                         '41-50_male','41-50_female','51-60_male','51-60_female',
+                                         '61+_male','61+_female'])    
 
 
 
-    periods_input = st.number_input('How many days forecast do you want?',
-    min_value = 1, max_value = 365)  
-#     select_region = st.text_input('Which Region?')  
+        with open('model_'+select_tg+'.pkl', 'rb') as f:
+            svr = pickle.load(f)
 
-    st.write("VISUALIZE FORECASTED DATA")
-    st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
+        team_list1=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+        select_team1 = st.sidebar.selectbox('Select Team 1',
+                                        team_list1)    
+        team_list2=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+        team_list2.remove(select_team1)
+        select_team2 = st.sidebar.selectbox('Select Team 2',
+                                        team_list2)   
+
+        region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
+               'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
+               'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
+               'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
+
+        select_region= st.sidebar.selectbox('Select Region',
+                                        region_list)
+
+
+
+        periods_input = st.number_input('How many days forecast do you want?',
+        min_value = 1, max_value = 365)  
+    #     select_region = st.text_input('Which Region?')  
+
+        st.write("VISUALIZE FORECASTED DATA")
+        st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
 
 
 
 
-    while True:
-# if data is not None:
+
+    # if data is not None:
         col=select_tg
     #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
 
@@ -107,7 +108,7 @@ if data is not None and data2 is not None:
         timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
 
         appdata=appdata_main[appdata_main['Region']==select_region]
-#         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))]    
+    #         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))]    
         df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
                     index = appdata.index),
                     pd.DataFrame(Festival_cat_encoder.transform(appdata[['Festival']]), columns=Festival_cat_encoder.get_feature_names_out(),
