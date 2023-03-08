@@ -49,7 +49,7 @@ def run_query(query):
 sheet_url = st.secrets["private_gsheets_url"]
 st.write(sheet_url)
 # rows = run_query(f'SELECT * FROM "{sheet_url}"')
-result=pd.read_csv(url=sheet_url)
+result=pd.read_csv(sheet_url)
 # # Print results.
 # for row in rows:
 #     st.write(f"{row.name} has a :{row.pet}:")
