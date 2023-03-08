@@ -47,10 +47,10 @@ with open('model_'+select_tg+'.pkl', 'rb') as f:
     svr = pickle.load(f)
 
 team_list=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-select_team1 = st.sidebar.selectbox('Select Team 1,
+select_team1 = st.sidebar.selectbox('Select Team 1',
                                 team_list)    
 
-select_team2 = st.sidebar.selectbox('Select Team 2,
+select_team2 = st.sidebar.selectbox('Select Team 2',
                                 team_list.remove(select_team1))   
 
 region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
@@ -58,7 +58,7 @@ region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
        'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
        'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
 
-select_region= st.sidebar.selectbox('Select Region,
+select_region= st.sidebar.selectbox('Select Region',
                                 region_list)
 
  
