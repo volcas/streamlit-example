@@ -181,13 +181,13 @@ if data is not None and data2 is not None:
     
     total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
      
-
-    appdata['pred']=total_pred
-    appdata['new_total']=total
+    new_new=appdata[appdata['Region']=select_region]
+    new_new['pred']=total_pred
+    new_new['new_total']=total
 
     figure1 =px.line(
-        data_frame =appdata,
-                x = appdata['Datetime'],
+        data_frame =new_new,
+                x = new_new['Datetime'],
             #     x = test_set['Datetime'].astype(str),
             #         y=["rat%_Universe scaled", "rr_reqRR_ratio", "maxSR scaled"],
                 y=["new_total","pred"],
