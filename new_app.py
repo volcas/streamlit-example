@@ -45,17 +45,9 @@ def load_data(sheets_url):
     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
     return pd.read_csv(csv_url)
 
-df = load_data(st.secrets["private_gsheets_url"])
-# sheet_url = st.secrets["private_gsheets_url"]
-# st.write(sheet_url)
-# # rows = run_query(f'SELECT * FROM "{sheet_url}"')
-# result=pd.read_csv(sheet_url,on_bad_lines='skip')
-# # Print results.
-# for row in rows:
-#     st.write(f"{row.name} has a :{row.pet}:")
+appdata_main = load_data(st.secrets["private_gsheets_url_1"])
 
-# st.dataframe(rows)
-st.write(df)
+result_main = load_data(st.secrets["private_gsheets_url_2"])
 
 
 
@@ -97,9 +89,9 @@ select_team2 = st.sidebar.selectbox('Select Team 2',
 st.write("VISUALIZE FORECASTED DATA")
 st.write("The following plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
-appdata_main = pd.read_csv(data)
-result="ResultOP.csv"
-result_main=pd.read_csv(result)
+# appdata_main = pd.read_csv(data)
+# result="ResultOP.csv"
+# result_main=pd.read_csv(result)
 # appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
 
 
