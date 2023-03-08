@@ -26,7 +26,8 @@ data2 = st.file_uploader('Upload second file here',type='csv')
 
 
 
-def model_run(appdata,select_region,select_team1,select_team2):
+def model_run(appdata_main,select_region,select_team1,select_team2):
+    region=select_region
     appdata=appdata[appdata['Region']==select_region]
 #         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))]    
     df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
@@ -98,17 +99,6 @@ def model_run(appdata,select_region,select_team1,select_team2):
 
 
 if data is not None and data2 is not None:
-    df_new = pd.read_csv(data)
-    extra=pd.read_csv(data2)
-    appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
-
-
-    appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
-#     st.write(data)
-
-    max_date = appdata_main['Datetime'].max()
-
-
     select_tg = st.sidebar.selectbox('What TG Level?',
                                     ['2-12_male','2-12_female','13-21_male','13-21_female',
                                      '22-30_male','22-30_female','31-40_male','31-40_female',
@@ -145,6 +135,12 @@ if data is not None and data2 is not None:
     st.write("VISUALIZE FORECASTED DATA")
     st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
 
+    df_new = pd.read_csv(data)
+    extra=pd.read_csv(data2)
+    appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
+
+
+    appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
 
 
 
