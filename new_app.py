@@ -71,13 +71,13 @@ st.write("VISUALIZE FORECASTED DATA")
 st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
 
 
-periods_input=22
+
 
 
 if data is not None:
     col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
-    offset=len(appdata_main)-periods_input
+    
     appdata=appdata_main.copy()
     typeOfDay_cat = appdata[['typeOfDay']]
 
@@ -105,7 +105,7 @@ if data is not None:
     timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
     
     appdata=appdata[appdata['Region']==select_region]
-#     appdata=appdata[(appdata['matchName'].str.contains(select_team2)) and (appdata['matchName'].str.contains(select_team2))]    
+    appdata=appdata[(appdata['matchName'].str.contains(select_team2)) & (appdata['matchName'].str.contains(select_team2))]    
     df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
                 index = appdata.index),
                 pd.DataFrame(Festival_cat_encoder.transform(appdata[['Festival']]), columns=Festival_cat_encoder.get_feature_names_out(),
@@ -118,10 +118,10 @@ if data is not None:
                 index = appdata.index)], axis=1)
 
 
-    df_num = appdata[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',col]]
+    df_num = appdata[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore','Pred',col]]
     X = pd.concat([df_num.iloc[:,:-1], df_cat], axis=1)
     y = pd.DataFrame(df_num.loc[:,col])
-
+    offset=len(X)-periods_input
     X_train = X.loc[0:offset-1,:]
     X_test = X.loc[offset:,:]
 
@@ -171,13 +171,14 @@ if data is not None:
     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.")    
 
     appdata['pred']=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
+    appdata['new_total']=target_scaler.inverse_transform(total.reshape(-1, 1))
 
     figure1 =px.line(
         data_frame =appdata,
                 x = appdata['Datetime'],
             #     x = test_set['Datetime'].astype(str),
             #         y=["rat%_Universe scaled", "rr_reqRR_ratio", "maxSR scaled"],
-                y=["Total","pred"],
+                y=["new_total","pred"],
             color_discrete_sequence=['red', "blue"])
             #     symbol=sample_df['timeOfDay'],
             #     symbol_sequence=['circle-open', 'square'],
