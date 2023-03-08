@@ -26,7 +26,7 @@ data2 = st.file_uploader('Upload second file here',type='csv')
 
 
 
-def model_run(appdata_main,select_regionselect_team1,select_team2):
+def model_run(appdata_main,select_region,select_team1,select_team2):
     appdata=appdata_main[appdata_main['Region']==select_region]
 #         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))]    
     df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
