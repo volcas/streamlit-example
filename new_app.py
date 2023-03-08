@@ -104,7 +104,7 @@ if data is not None:
     timeOfDay_cat_encoder = OneHotEncoder(sparse=False)
     timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
     
-    appdata=appdata[appdata['Region']==select_region]
+    appdata=appdata_main[appdata_main['Region']==select_region]
     appdata=appdata[(appdata['matchName'].str.contains(select_team2)) & (appdata['matchName'].str.contains(select_team2))]    
     df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
                 index = appdata.index),
