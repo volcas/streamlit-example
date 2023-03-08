@@ -94,7 +94,7 @@ if data is not None:
     inning_cat_encoder = OneHotEncoder(sparse=False)
     inning_cat_1hot = inning_cat_encoder.fit_transform(inning_cat)
 
-    region_cat = df[['Region']]
+    region_cat = appdata[['Region']]
 
     region_cat_encoder = OneHotEncoder(sparse=False)
     region_cat_1hot = region_cat_encoder.fit_transform(region_cat)
@@ -112,8 +112,8 @@ if data is not None:
                 index = appdata.index), 
                 pd.DataFrame(inning_cat_encoder.transform(appdata[['inning']]), columns=inning_cat_encoder.get_feature_names_out(),
                 index = appdata.index),
-                pd.DataFrame(region_cat_encoder.transform(df[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
-                index = df.index),
+                pd.DataFrame(region_cat_encoder.transform(appdata[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
+                index = appdata.index),
                 pd.DataFrame(timeOfDay_cat_encoder.transform(appdata[['timeOfDay']]), columns=timeOfDay_cat_encoder.get_feature_names_out(),
                 index = appdata.index)], axis=1)
 
