@@ -12,8 +12,6 @@ from sklearn.svm import SVR
 import datetime
 from sklearn.metrics import mean_squared_error
 import plotly.express as px
-import pickle
-
 st.title('Time Series Forecasting Using Streamlit')
 
 st.write("IMPORT DATA")
@@ -51,11 +49,9 @@ with open('model_'+select_tg+'.pkl', 'rb') as f:
 team_list=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
 select_team1 = st.sidebar.selectbox('Select Team 1',
                                 team_list)    
-st.write(select_team1)
-st.write(type(select_team1))
-st.write(str(select_team1))
+team_list.remove(select_team1)
 select_team2 = st.sidebar.selectbox('Select Team 2',
-                                team_list.remove(str(select_team1)))   
+                                team_list)   
 
 region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
