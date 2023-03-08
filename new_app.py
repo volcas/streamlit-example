@@ -179,7 +179,7 @@ if data is not None and data2 is not None:
     timeOfDay_cat_encoder = OneHotEncoder(sparse=False)
     timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
     
-   total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
+    total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
      
     new_new=appdata[appdata['Region']==select_region]
     new_new['pred']=total_pred
