@@ -18,12 +18,12 @@ st.title('Time Series Forecasting Using Streamlit')
 st.write("IMPORT DATA")
 st.write("Import the time series csv file. It should have two columns labelled as 'ds' and 'y'.The 'ds' column should be of datetime format  by Pandas. The 'y' column must be numeric representing the measurement to be forecasted.")
 
-# data = st.file_uploader('Upload first file here',type='csv')
-data1 = pd.read_csv('dataset_for_static_model_pred.csv')
+data = st.file_uploader('Upload first file here',type='csv')
+# data = pd.read_csv('dataset_for_static_model.csv')
 
 
-# data2 = st.file_uploader('Upload second file here',type='csv')
-data2=pd.read_csv("IPL_5minute_data_TG_wise_male_female.csv")
+data2 = st.file_uploader('Upload second file here',type='csv')
+
 
 
 def model_run(appdata_main,select_region,select_team1,select_team2):
@@ -91,17 +91,13 @@ def model_run(appdata_main,select_region,select_team1,select_team2):
 #     st.write(total_pred)
 
 
-#     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.") 
-    total_pred=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
-    total=target_scaler.inverse_transform(total.reshape(-1, 1))
+#     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.")   
     return total_pred,total
 
 
 if data is not None and data2 is not None:
-#     df_new = pd.read_csv(data)
-    df_new=data1
-#     extra=pd.read_csv(data2)
-    extra=data2
+    df_new = pd.read_csv(data)
+    extra=pd.read_csv(data2)
     appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
 
 
@@ -183,13 +179,13 @@ if data is not None and data2 is not None:
     
     total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
      
-    new_new=appdata[appdata['Region']==select_region]
-    new_new['pred']=total_pred
-    new_new['new_total']=total
+
+    appdata['pred']=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
+    appdata['new_total']=target_scaler.inverse_transform(total.reshape(-1, 1))
 
     figure1 =px.line(
-        data_frame =new_new,
-                x = new_new['Datetime'],
+        data_frame =appdata,
+                x = appdata['Datetime'],
             #     x = test_set['Datetime'].astype(str),
             #         y=["rat%_Universe scaled", "rr_reqRR_ratio", "maxSR scaled"],
                 y=["new_total","pred"],
