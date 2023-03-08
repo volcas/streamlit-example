@@ -24,7 +24,7 @@ data = st.file_uploader('Upload first file here',type='csv')
 
 data2 = st.file_uploader('Upload second file here',type='csv')
 
-if data is not None and if data2 is not none:
+if data is not None and data2 is not none:
     df_new = pd.read_csv(data)
     extra=pd.read_csv(data2)
     appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
