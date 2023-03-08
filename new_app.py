@@ -49,11 +49,11 @@ if data is not None and data2 is not None:
 
     team_list1=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
     select_team1 = st.sidebar.selectbox('Select Team 1',
-                                    team_list)    
+                                    team_list1)    
     team_list2=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
     team_list2.remove(select_team1)
     select_team2 = st.sidebar.selectbox('Select Team 2',
-                                    team_list)   
+                                    team_list2)   
 
     region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
            'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
