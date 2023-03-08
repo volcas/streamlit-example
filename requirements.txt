@@ -4,4 +4,6 @@ streamlit
 numpy
 scikit-learn
 plotly
+pyparsing
 gsheetsdb
+
