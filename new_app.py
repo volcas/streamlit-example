@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-# from fbprophet import Prophet
-# from fbprophet.diagnostics import performance_metrics
-# from fbprophet.diagnostics import cross_validation
-# from fbprophet.plot import plot_cross_validation_metric
+from fbprophet import Prophet
+from fbprophet.diagnostics import performance_metrics
+from fbprophet.diagnostics import cross_validation
+from fbprophet.plot import plot_cross_validation_metric
 import base64
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
@@ -21,28 +21,56 @@ data = st.file_uploader('Upload here',type='csv')
 # data = pd.read_csv('dataset_for_static_model.csv')
 
 if data is not None:
-    appdata = pd.read_csv(data)
-    appdata['Datetime'] = appdata['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
+    appdata_main = pd.read_csv(data)
+    appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
     st.write(data)
     
-    max_date = appdata['Datetime'].max()
+    max_date = appdata_main['Datetime'].max()
 
-st.write("SELECT FORECAST PERIOD")
+    
+select_tg = st.sidebar.selectbox('What TG Level?,
+                                ['2-12_male','2-12_female','13-21_male','13-21_female',
+                                 '22-30_male','22-30_female','31-40_male','31-40_female',
+                                 '41-50_male','41-50_female','51-60_male','51-60_female',
+                                 '61+_male','61+_female'])    
+
+
+
+with open('model_'+select_tg+'.pkl', 'rb') as f:
+    svr = pickle.load(f)
+
+team_list=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+select_team1 = st.sidebar.selectbox('Select Team 1,
+                                team_list)    
+
+select_team2 = st.sidebar.selectbox('Select Team 2,
+                                team_list.remove(select_team1))   
+
+region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
+       'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
+       'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
+       'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
+
+select_region= st.sidebar.selectbox('Select Region,
+                                region_list)
+
+ 
 
 periods_input = st.number_input('How many days forecast do you want?',
-min_value = 1, max_value = 365)
-
-# if data is not None:
-#     obj = Prophet()
-#     obj.fit(appdata)
-
+min_value = 1, max_value = 365)    
+    
 st.write("VISUALIZE FORECASTED DATA")
 st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
 
+
+
+
+
 if data is not None:
-    col='Total'
+    col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
-    offset=len(appdata)-periods_input
+    offset=len(appdata_main)-periods_input
+    app_data=appdata_main.copy()
     typeOfDay_cat = appdata[['typeOfDay']]
 
     typeOfDay_cat_encoder = OneHotEncoder(sparse=False)
@@ -58,24 +86,26 @@ if data is not None:
     inning_cat_encoder = OneHotEncoder(sparse=False)
     inning_cat_1hot = inning_cat_encoder.fit_transform(inning_cat)
 
-#     region_cat = df[['Region']]
+    region_cat = df[['Region']]
 
-#     region_cat_encoder = OneHotEncoder(sparse=False)
-#     region_cat_1hot = region_cat_encoder.fit_transform(region_cat)
+    region_cat_encoder = OneHotEncoder(sparse=False)
+    region_cat_1hot = region_cat_encoder.fit_transform(region_cat)
 
     timeOfDay_cat = appdata[['timeOfDay']]
 
     timeOfDay_cat_encoder = OneHotEncoder(sparse=False)
     timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
-
+    
+    appdata=appdata[appdata['Region']==select_region]
+    appdata=appdata[(appdata['matchName'].str.contains(select_team2)) and (appdata['matchName'].str.contains(select_team2))]    
     df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
                 index = appdata.index),
                 pd.DataFrame(Festival_cat_encoder.transform(appdata[['Festival']]), columns=Festival_cat_encoder.get_feature_names_out(),
                 index = appdata.index), 
                 pd.DataFrame(inning_cat_encoder.transform(appdata[['inning']]), columns=inning_cat_encoder.get_feature_names_out(),
                 index = appdata.index),
-#                 pd.DataFrame(region_cat_encoder.transform(df[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
-#                 index = df.index),
+                pd.DataFrame(region_cat_encoder.transform(df[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
+                index = df.index),
                 pd.DataFrame(timeOfDay_cat_encoder.transform(appdata[['timeOfDay']]), columns=timeOfDay_cat_encoder.get_feature_names_out(),
                 index = appdata.index)], axis=1)
 
@@ -99,16 +129,16 @@ if data is not None:
     X_test[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore']] = feature_scaler.transform(X_test[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore']])
     y_test = target_scaler.transform(y_test)
 
-    svr = SVR()
+#     svr = SVR()
 
     # train the model on training data
-    svr.fit(X_train.fillna(0), y_train)
+#     svr.fit(X_train.fillna(0), y_train)
 
     # make predictions on test data
     y_pred = svr.predict(X_test.fillna(0))
     # y_pred=1.33*y_pred
     # calculate mean squared error
-    mse = mean_squared_error(y_test, y_pred)
+#     mse = mean_squared_error(y_test, y_pred)
     y_pred1=svr.predict(X_train.fillna(0))
     # mse = mean_squared_error(y_train, y_pred1)
     # print(mse)
@@ -165,10 +195,3 @@ if data is not None:
                                    width=1000,height=500)
 
     st.write(figure1)
- 
-    
-#     st.write("The next few visuals show a high level trend of predicted values, day of week trends, and yearly trends (if dataset covers multiple years). The blue shaded area represents upper and lower confidence intervals.")
-      
-
-#     figure2 = obj.plot_components(fcst)
-#     st.write(figure2)
