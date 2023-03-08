@@ -53,7 +53,7 @@ select_team1 = st.sidebar.selectbox('Select Team 1',
                                 team_list)    
 
 select_team2 = st.sidebar.selectbox('Select Team 2',
-                                team_list.remove(select_team1))   
+                                team_list.remove(str(select_team1)))   
 
 region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
