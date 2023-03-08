@@ -18,12 +18,12 @@ st.title('Time Series Forecasting Using Streamlit')
 st.write("IMPORT DATA")
 st.write("Import the time series csv file. It should have two columns labelled as 'ds' and 'y'.The 'ds' column should be of datetime format  by Pandas. The 'y' column must be numeric representing the measurement to be forecasted.")
 
-data = st.file_uploader('Upload first file here',type='csv')
-# data = pd.read_csv('dataset_for_static_model.csv')
+# data = st.file_uploader('Upload first file here',type='csv')
+data1 = pd.read_csv('dataset_for_static_model_pred.csv')
 
 
-data2 = st.file_uploader('Upload second file here',type='csv')
-
+# data2 = st.file_uploader('Upload second file here',type='csv')
+data2=pd.read_csv("IPL_5minute_data_TG_wise_male_female.csv")
 
 
 def model_run(appdata_main,select_region,select_team1,select_team2):
@@ -98,8 +98,10 @@ def model_run(appdata_main,select_region,select_team1,select_team2):
 
 
 if data is not None and data2 is not None:
-    df_new = pd.read_csv(data)
-    extra=pd.read_csv(data2)
+#     df_new = pd.read_csv(data)
+    df_new=data1
+#     extra=pd.read_csv(data2)
+    extra=data2
     appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
 
 
@@ -153,7 +155,7 @@ if data is not None and data2 is not None:
     col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
 
-    appdata=appdata_main.copy()
+    appdata=appdata_main
     typeOfDay_cat = appdata[['typeOfDay']]
 
     typeOfDay_cat_encoder = OneHotEncoder(sparse=False)
