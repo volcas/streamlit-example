@@ -87,7 +87,6 @@ select_team2 = st.sidebar.selectbox('Select Team 2',
 #     select_region = st.text_input('Which Region?')  
 
 st.write("VISUALIZE FORECASTED DATA")
-st.write("The following plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
 # appdata_main = pd.read_csv(data)
 # result="ResultOP.csv"
@@ -114,6 +113,7 @@ resultdata=result_main[(result_main['key'].str.contains(select_region)) & (resul
 
 st.write("Model result metrics for the TG")
 st.write(resultdata)
+st.write("The following plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
 for date in np.unique(appdata['Datetime'].str.split().str[0]):
     new=appdata[appdata['Datetime'].str.contains(date)]
