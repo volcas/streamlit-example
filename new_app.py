@@ -67,7 +67,7 @@ if data is not None and data2 is not None:
 
     periods_input = st.number_input('How many days forecast do you want?',
     min_value = 1, max_value = 365)  
-    select_region = st.text_input('Which Region?')  
+#     select_region = st.text_input('Which Region?')  
 
     st.write("VISUALIZE FORECASTED DATA")
     st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
