@@ -91,7 +91,9 @@ def model_run(appdata_main,select_region,select_team1,select_team2):
 #     st.write(total_pred)
 
 
-#     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.")   
+#     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.") 
+    total_pred=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
+    total=target_scaler.inverse_transform(total.reshape(-1, 1))
     return total_pred,total
 
 
@@ -177,11 +179,11 @@ if data is not None and data2 is not None:
     timeOfDay_cat_encoder = OneHotEncoder(sparse=False)
     timeOfDay_cat_1hot = timeOfDay_cat_encoder.fit_transform(timeOfDay_cat)
     
-    total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
+   total_pred,total=model_run(appdata,select_region,select_team1,select_team2)
      
-
-    appdata['pred']=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
-    appdata['new_total']=target_scaler.inverse_transform(total.reshape(-1, 1))
+    new_new=appdata[appdata['Region']==select_region]
+    new_new['pred']=total_pred
+    new_new['new_total']=total
 
     figure1 =px.line(
         data_frame =appdata,
