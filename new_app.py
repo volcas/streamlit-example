@@ -24,7 +24,7 @@ data = st.file_uploader('Upload first file here',type='csv')
 
 data2 = st.file_uploader('Upload second file here',type='csv')
 
-if data is not None:
+if data is not None and if data2 is not none:
     df_new = pd.read_csv(data)
     extra=pd.read_csv(data2)
     appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
@@ -36,45 +36,45 @@ if data is not None:
     max_date = appdata_main['Datetime'].max()
 
     
-select_tg = st.sidebar.selectbox('What TG Level?',
-                                ['2-12_male','2-12_female','13-21_male','13-21_female',
-                                 '22-30_male','22-30_female','31-40_male','31-40_female',
-                                 '41-50_male','41-50_female','51-60_male','51-60_female',
-                                 '61+_male','61+_female'])    
+    select_tg = st.sidebar.selectbox('What TG Level?',
+                                    ['2-12_male','2-12_female','13-21_male','13-21_female',
+                                     '22-30_male','22-30_female','31-40_male','31-40_female',
+                                     '41-50_male','41-50_female','51-60_male','51-60_female',
+                                     '61+_male','61+_female'])    
 
 
 
-with open('model_'+select_tg+'.pkl', 'rb') as f:
-    svr = pickle.load(f)
+    with open('model_'+select_tg+'.pkl', 'rb') as f:
+        svr = pickle.load(f)
 
-team_list=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-select_team1 = st.sidebar.selectbox('Select Team 1',
-                                team_list)    
-team_list.remove(select_team1)
-select_team2 = st.sidebar.selectbox('Select Team 2',
-                                team_list)   
+    team_list=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+    select_team1 = st.sidebar.selectbox('Select Team 1',
+                                    team_list)    
+    team_list.remove(select_team1)
+    select_team2 = st.sidebar.selectbox('Select Team 2',
+                                    team_list)   
 
-region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
-       'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
-       'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
-       'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
+    region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
+           'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
+           'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
+           'TN/Pondicherry', 'UP/Uttarakhand', 'West Bengal']
 
-select_region= st.sidebar.selectbox('Select Region',
-                                region_list)
-
- 
-
-periods_input = st.number_input('How many days forecast do you want?',
-min_value = 1, max_value = 365)    
-    
-st.write("VISUALIZE FORECASTED DATA")
-st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
+    select_region= st.sidebar.selectbox('Select Region',
+                                    region_list)
 
 
 
+    periods_input = st.number_input('How many days forecast do you want?',
+    min_value = 1, max_value = 365)    
+
+    st.write("VISUALIZE FORECASTED DATA")
+    st.write("The following plot shows future predicted values. 'yhat' is the predicted value; upper and lower limits are 80% confidence intervals by default")
 
 
-if data is not None:
+
+
+
+# if data is not None:
     col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
     
