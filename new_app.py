@@ -17,18 +17,25 @@ st.title('Time Series Forecasting Using Streamlit')
 st.write("IMPORT DATA")
 st.write("Import the time series csv file. It should have two columns labelled as 'ds' and 'y'.The 'ds' column should be of datetime format  by Pandas. The 'y' column must be numeric representing the measurement to be forecasted.")
 
-data = st.file_uploader('Upload here',type='csv')
+data = st.file_uploader('Upload first file here',type='csv')
 # data = pd.read_csv('dataset_for_static_model.csv')
 
+
+data2 = st.file_uploader('Upload second file here',type='csv')
+
 if data is not None:
-    appdata_main = pd.read_csv(data)
+    df_new = pd.read_csv(data)
+    extra=pd.read_csv(data2)
+    appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
+
+    
     appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
-    st.write(data)
+#     st.write(data)
     
     max_date = appdata_main['Datetime'].max()
 
     
-select_tg = st.sidebar.selectbox('What TG Level?,
+select_tg = st.sidebar.selectbox('What TG Level?',
                                 ['2-12_male','2-12_female','13-21_male','13-21_female',
                                  '22-30_male','22-30_female','31-40_male','31-40_female',
                                  '41-50_male','41-50_female','51-60_male','51-60_female',
