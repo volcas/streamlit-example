@@ -24,7 +24,7 @@ if data is not None:
     appdata = pd.read_csv(data)
     appdata['Datetime'] = appdata['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
     st.write(data)
-    
+
     max_date = appdata['Datetime'].max()
 
 st.write("SELECT FORECAST PERIOD")
@@ -129,7 +129,7 @@ if data is not None:
 #     forecast_filtered =  forecast[forecast['ds'] > max_date]    
     st.write(total_pred)
 
-    
+
     st.write("The next visual shows the actual (red line) and predicted (blue line) values over time.")    
 
     appdata['pred']=target_scaler.inverse_transform(total_pred.reshape(-1, 1))
@@ -141,28 +141,15 @@ if data is not None:
             #         y=["rat%_Universe scaled", "rr_reqRR_ratio", "maxSR scaled"],
                 y=["Total","pred"],
             color_discrete_sequence=['red', "blue"])
-            #     symbol=sample_df['timeOfDay'],
-            #     symbol_sequence=['circle-open', 'square'],
-            #         y = 'rat%_Universe',
-            #     opacity = 0.9,
-            #     orientation = "v",
-            #     barmode = 'group',
-            #     text="match_name"
-
-
-            # fig2.update_traces(textposition=sample_df['textPosition'])
-
-            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-            # fig2.update_xaxes(tickangle=290)
-    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title=f"SVR with linear kernel model prediction",
-                                   xaxis_title="Time of day",
-                                   yaxis_title="Predicted Viewership",
-                                   width=1000,height=500)
+    figure1.update_layout(
+        showlegend=True,
+        font=dict(family="Courier New", size=12, color='Black'),
+        title="SVR with linear kernel model prediction",
+        xaxis_title="Time of day",
+        yaxis_title="Predicted Viewership",
+        width=1000,
+        height=500,
+    )
 
     st.write(figure1)
  
