@@ -6,6 +6,7 @@ import numpy as np
 # from fbprophet.diagnostics import cross_validation
 # from fbprophet.plot import plot_cross_validation_metric
 import base64
+import pickle
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
