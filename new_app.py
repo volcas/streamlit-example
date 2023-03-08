@@ -12,6 +12,8 @@ from sklearn.svm import SVR
 import datetime
 from sklearn.metrics import mean_squared_error
 import plotly.express as px
+import pickle
+
 st.title('Time Series Forecasting Using Streamlit')
 
 st.write("IMPORT DATA")
