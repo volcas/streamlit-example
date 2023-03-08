@@ -26,25 +26,25 @@ data2 = st.file_uploader('Upload second file here',type='csv')
 
 
 
-def model_run(appdata,select_team1,select_team2):
+def model_run(func_data,select_team1,select_team2):
     select_region= st.sidebar.selectbox('Select Region',
                                     region_list)
     region=select_region
-    appdata=appdata[appdata['Region']==region]
+    func_data=func_data[func_data['Region']==region]
 #         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))]    
-    df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(appdata[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
-                index = appdata.index),
-                pd.DataFrame(Festival_cat_encoder.transform(appdata[['Festival']]), columns=Festival_cat_encoder.get_feature_names_out(),
-                index = appdata.index), 
-                pd.DataFrame(inning_cat_encoder.transform(appdata[['inning']]), columns=inning_cat_encoder.get_feature_names_out(),
-                index = appdata.index),
-                pd.DataFrame(region_cat_encoder.transform(appdata[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
-                index = appdata.index),
-                pd.DataFrame(timeOfDay_cat_encoder.transform(appdata[['timeOfDay']]), columns=timeOfDay_cat_encoder.get_feature_names_out(),
-                index = appdata.index)], axis=1)
+    df_cat = pd.concat([pd.DataFrame(typeOfDay_cat_encoder.transform(func_data[['typeOfDay']]), columns=typeOfDay_cat_encoder.get_feature_names_out(),
+                index = func_data.index),
+                pd.DataFrame(Festival_cat_encoder.transform(func_data[['Festival']]), columns=Festival_cat_encoder.get_feature_names_out(),
+                index = func_data.index), 
+                pd.DataFrame(inning_cat_encoder.transform(func_data[['inning']]), columns=inning_cat_encoder.get_feature_names_out(),
+                index = func_data.index),
+                pd.DataFrame(region_cat_encoder.transform(func_data[['Region']]), columns=region_cat_encoder.get_feature_names_out(),
+                index = func_data.index),
+                pd.DataFrame(timeOfDay_cat_encoder.transform(func_data[['timeOfDay']]), columns=timeOfDay_cat_encoder.get_feature_names_out(),
+                index = func_data.index)], axis=1)
 
 
-    df_num = appdata[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore','Pred',col]]
+    df_num = func_data[['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore','Pred',col]]
     X = pd.concat([df_num.iloc[:,:-1], df_cat], axis=1)
     y = pd.DataFrame(df_num.loc[:,col])
     offset=len(X)-periods_input
@@ -139,10 +139,10 @@ if data is not None and data2 is not None:
 
     df_new = pd.read_csv(data)
     extra=pd.read_csv(data2)
-    appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
+    appdata=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
 
 
-    appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
+    appdata['Datetime'] = appdata['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
 
 
 
@@ -151,7 +151,7 @@ if data is not None and data2 is not None:
     col=select_tg
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
 
-    appdata=appdata_main
+#     appdata=appdata_main
     typeOfDay_cat = appdata[['typeOfDay']]
 
     typeOfDay_cat_encoder = OneHotEncoder(sparse=False)
