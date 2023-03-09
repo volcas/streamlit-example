@@ -157,7 +157,7 @@ st.write(resultdata)
 st.write("The following plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
 for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
-    new=appdata[appdata['Datetime'].str.contains(date)]
+    new=appdata[appdata['Datetime'].astype(str).str.contains(date)]
     figure1 =px.line(
         data_frame =new,
                 x = new['Datetime'],
