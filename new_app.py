@@ -53,6 +53,10 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 # for row in rows:
 #     st.write(f"{row.name} has a :{row.pet}:")
 st.write(rows)
+
+df=pd.read_csv(rows)
+st.write(df)
+
 # def load_data(sheets_url):
 #     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
 #     return pd.read_csv(csv_url)
