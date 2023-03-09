@@ -74,8 +74,8 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 #     st.write(f"{row.name} has a :{row.pet}:")
 
 
-app_main=pd.DataFrame.from_records(rows)
-app_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Description',
+appdata_main=pd.DataFrame.from_records(rows)
+appdata_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Description',
        'Actual_2-12_male', 'Predicted_2-12_male', 'Region',
        'Actual_2-12_female', 'Predicted_2-12_female', 'Actual_13-21_male',
        'Predicted_13-21_male', 'Actual_13-21_female', 'Predicted_13-21_female',
