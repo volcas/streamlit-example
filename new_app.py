@@ -19,7 +19,7 @@ st.title('Time Series Forecasting Using Streamlit')
 # st.write("Import the time series csv file. It should have two columns labelled as 'ds' and 'y'.The 'ds' column should be of datetime format  by Pandas. The 'y' column must be numeric representing the measurement to be forecasted.")
 
 # data = st.file_uploader('Upload first file here',type='csv')
-data='TS_Reg.csv'
+# data='TS_Reg.csv'
 
 
 # data2 = st.file_uploader('Upload second file here',type='csv')
@@ -40,7 +40,7 @@ conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
-# @st.cache_data(ttl=600)
+# @st.cache_resource(ttl=600)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
@@ -52,10 +52,10 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 # Print results.
 # for row in rows:
 #     st.write(f"{row.name} has a :{row.pet}:")
-st.write(rows)
 
-df=pd.DataFrame.from_records(rows)
-st.write(df)
+
+result_main=pd.DataFrame.from_records(rows)
+result_main.columns=['key','rmse','mse','mape']
 
 # def load_data(sheets_url):
 #     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
@@ -65,6 +65,27 @@ st.write(df)
 
 # result_main = load_data(st.secrets["private_gsheets_url_2"])
 
+
+sheet_url = st.secrets["private_gsheets_url_2"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+
+# Print results.
+# for row in rows:
+#     st.write(f"{row.name} has a :{row.pet}:")
+
+
+app_main=pd.DataFrame.from_records(rows)
+app_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Description',
+       'Actual_2-12_male', 'Predicted_2-12_male', 'Region',
+       'Actual_2-12_female', 'Predicted_2-12_female', 'Actual_13-21_male',
+       'Predicted_13-21_male', 'Actual_13-21_female', 'Predicted_13-21_female',
+       'Actual_22-30_male', 'Predicted_22-30_male', 'Actual_22-30_female',
+       'Predicted_22-30_female', 'Actual_31-40_male', 'Predicted_31-40_male',
+       'Actual_31-40_female', 'Predicted_31-40_female', 'Actual_41-50_male',
+       'Predicted_41-50_male', 'Actual_41-50_female', 'Predicted_41-50_female',
+       'Actual_51-60_male', 'Predicted_51-60_male', 'Actual_51-60_female',
+       'Predicted_51-60_female', 'Actual_61+_male', 'Predicted_61+_male',
+       'Actual_61+_female', 'Predicted_61+_female']
 
 
 # if data is not None and data2 is not None:
