@@ -41,13 +41,25 @@ conn = connect(credentials=credentials)
 # Perform SQL query on the Google Sheet.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
 @st.cache_data(ttl=600)
-def load_data(sheets_url):
-    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
-    return pd.read_csv(csv_url)
+# @st.cache_data(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
 
-appdata_main = load_data(st.secrets["private_gsheets_url_1"])
+sheet_url = st.secrets["private_gsheets_url_1"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-result_main = load_data(st.secrets["private_gsheets_url_2"])
+# Print results.
+for row in rows:
+    st.write(f"{row.name} has a :{row.pet}:")
+# def load_data(sheets_url):
+#     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+#     return pd.read_csv(csv_url)
+
+# appdata_main = load_data(st.secrets["private_gsheets_url_1"])
+
+# result_main = load_data(st.secrets["private_gsheets_url_2"])
 
 
 
