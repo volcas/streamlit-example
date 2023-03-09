@@ -54,7 +54,7 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 #     st.write(f"{row.name} has a :{row.pet}:")
 st.write(rows)
 
-df=pd.read_csv(rows)
+df=pd.DataFrame.from_records(rows)
 st.write(df)
 
 # def load_data(sheets_url):
