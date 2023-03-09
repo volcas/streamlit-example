@@ -93,7 +93,7 @@ appdata_main['Datetime']=pd.to_datetime(appdata_main['Datetime'],format="%Y-%m-%
 # if data is not None and data2 is not None:
 
 
-st.write(appdata_main['Datetime'].astype(str).split().str[0])
+st.write(appdata_main['Datetime'].astype(str).str.split().str[0])
 
 # with open('model_'+select_tg+'.pkl', 'rb') as f:
 #     svr = pickle.load(f)
