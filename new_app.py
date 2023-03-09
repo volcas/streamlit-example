@@ -88,6 +88,8 @@ appdata_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Descript
        'Actual_61+_female', 'Predicted_61+_female']
 
 
+st.write(appdata_main.head(4))
+appdata_main['Datetime']=pd.to_datetime(appdata_main['Datetime'],format="%Y-%m-%d %H:%M")
 # if data is not None and data2 is not None:
 
 
