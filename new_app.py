@@ -88,12 +88,12 @@ appdata_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Descript
        'Actual_61+_female', 'Predicted_61+_female']
 
 
-st.write(appdata_main.head(4))
+# st.write(appdata_main.head(4))
 appdata_main['Datetime']=pd.to_datetime(appdata_main['Datetime'],format="%Y-%m-%d %H:%M")
 # if data is not None and data2 is not None:
 
 
-st.write(appdata_main['Datetime'].astype(str).str.split().str[0])
+# st.write(appdata_main['Datetime'].astype(str).str.split().str[0])
 
 # with open('model_'+select_tg+'.pkl', 'rb') as f:
 #     svr = pickle.load(f)
@@ -156,7 +156,7 @@ st.write("Model result metrics for the TG")
 st.write(resultdata)
 st.write("The following plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
-for date in np.unique(appdata['Datetime'].str.split().str[0]):
+for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
     new=appdata[appdata['Datetime'].str.contains(date)]
     figure1 =px.line(
         data_frame =new,
