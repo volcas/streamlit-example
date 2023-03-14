@@ -29,65 +29,68 @@ st.title('Time Series Forecasting Using Streamlit')
 from google.oauth2 import service_account
 from gsheetsdb import connect
 
-# Create a connection object.
-# credentials = service_account.Credentials.from_service_account_info(
-#     st.secrets["gcp_service_account"],
-#     scopes=[
-#         "https://www.googleapis.com/auth/spreadsheets",
-#     ],
-# )
-# conn = connect(credentials=credentials)
+Create a connection object.
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+conn = connect(credentials=credentials)
 
-# # Perform SQL query on the Google Sheet.
-# # Uses st.cache_data to only rerun when the query changes or after 10 min.
-# @st.cache_resource(ttl=600)
-# def run_query(query):
-#     rows = conn.execute(query, headers=1)
-#     rows = rows.fetchall()
-#     return rows
+# Perform SQL query on the Google Sheet.
+# Uses st.cache_data to only rerun when the query changes or after 10 min.
+@st.cache_resource(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
 
-# sheet_url = st.secrets["private_gsheets_url_1"]
-# rows = run_query(f'SELECT * FROM "{sheet_url}"')
-
-
-# result_main=pd.DataFrame.from_records(rows)
-# result_main.columns=['key','rmse','mse','mape']
-
-# # appdata_main = load_data(st.secrets["private_gsheets_url_1"])
-# # result_main = load_data(st.secrets["private_gsheets_url_2"])
+sheet_url = st.secrets["private_gsheets_url_1"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 
-# sheet_url = st.secrets["private_gsheets_url_2"]
-# rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings1_data=pd.DataFrame.from_records(rows)
+innings1_data.columns=['Datetime', 'Description', '13-21_female', '13-21_female_prediction',
+       '13-21_female_MAPE', '13-21_female_AP / Telangana_actuals',
+       '13-21_female_AP / Telangana_predictions',
+       '13-21_female_AP / Telangana_MAPE',
+       '13-21_female_Assam / North East / Sikkim_actuals',
+       '13-21_female_Assam / North East / Sikkim_predictions',
+       ...
+       'Universe_total_Rajasthan_MAPE',
+       'Universe_total_TN/Pondicherry_actuals',
+       'Universe_total_TN/Pondicherry_predictions',
+       'Universe_total_TN/Pondicherry_MAPE',
+       'Universe_total_UP/Uttarakhand_actuals',
+       'Universe_total_UP/Uttarakhand_predictions',
+       'Universe_total_UP/Uttarakhand_MAPE',
+       'Universe_total_West Bengal_actuals',
+       'Universe_total_West Bengal_predictions',
+       'Universe_total_West Bengal_MAPE']
 
-# Print results.
-# for row in rows:
-#     st.write(f"{row.name} has a :{row.pet}:")
+sheet_url = st.secrets["private_gsheets_url_2"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
+innings2_data=pd.DataFrame.from_records(rows)
+innings2_data.columns=['Datetime', 'Description', '13-21_female', '13-21_female_prediction',
+       '13-21_female_MAPE', '13-21_female_AP / Telangana_actuals',
+       '13-21_female_AP / Telangana_predictions',
+       '13-21_female_AP / Telangana_MAPE',
+       '13-21_female_Assam / North East / Sikkim_actuals',
+       '13-21_female_Assam / North East / Sikkim_predictions',
+       ...
+       'Universe_total_Rajasthan_MAPE',
+       'Universe_total_TN/Pondicherry_actuals',
+       'Universe_total_TN/Pondicherry_predictions',
+       'Universe_total_TN/Pondicherry_MAPE',
+       'Universe_total_UP/Uttarakhand_actuals',
+       'Universe_total_UP/Uttarakhand_predictions',
+       'Universe_total_UP/Uttarakhand_MAPE',
+       'Universe_total_West Bengal_actuals',
+       'Universe_total_West Bengal_predictions',
+       'Universe_total_West Bengal_MAPE']
 
-# appdata_main=pd.DataFrame.from_records(rows)
-# appdata_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Description',
-#        'Actual_2-12_male', 'Predicted_2-12_male', 'Region',
-#        'Actual_2-12_female', 'Predicted_2-12_female', 'Actual_13-21_male',
-#        'Predicted_13-21_male', 'Actual_13-21_female', 'Predicted_13-21_female',
-#        'Actual_22-30_male', 'Predicted_22-30_male', 'Actual_22-30_female',
-#        'Predicted_22-30_female', 'Actual_31-40_male', 'Predicted_31-40_male',
-#        'Actual_31-40_female', 'Predicted_31-40_female', 'Actual_41-50_male',
-#        'Predicted_41-50_male', 'Actual_41-50_female', 'Predicted_41-50_female',
-#        'Actual_51-60_male', 'Predicted_51-60_male', 'Actual_51-60_female',
-#        'Predicted_51-60_female', 'Actual_61+_male', 'Predicted_61+_male',
-#        'Actual_61+_female', 'Predicted_61+_female']
-
-
-# st.write(appdata_main.head(4))
-# appdata_main['Datetime']=pd.to_datetime(appdata_main['Datetime'],format="%Y-%m-%d %H:%M")
-# if data is not None and data2 is not None:
-
-
-# st.write(appdata_main['Datetime'].astype(str).str.split().str[0])
-
-# with open('model_'+select_tg+'.pkl', 'rb') as f:
-#     svr = pickle.load(f)
 
 
 region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
@@ -129,12 +132,12 @@ st.write("VISUALIZE FORECASTED DATA")
 # appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
 
 
-innings1_data=pd.read_csv("C:/Work/IPL Prediction/TG_level_predictions_inning1.csv")
+# innings1_data=pd.read_csv("C:/Work/IPL Prediction/TG_level_predictions_inning1.csv")
 # innings1_result=pd.read_csv("C:/Work/IPL Prediction/Innings1_result.csv")
 # innings1_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings1.csv")
 
 
-innings2_data=pd.read_csv("C:/Work/IPL Prediction/TG_level_predictions_inning2.csv")
+# innings2_data=pd.read_csv("C:/Work/IPL Prediction/TG_level_predictions_inning2.csv")
 # innings2_result=pd.read_csv("C:/Work/IPL Prediction/Innings2_result.csv")
 # innings2_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings2.csv")
 # appdata_main=appdata_main[appdata_main['Datetime']<"2022-05-24"]
@@ -166,11 +169,12 @@ appdata=appdata.reset_index().drop('index',1)
 # sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
 # st.write(sumdata[['matchName',col]])
 
-st.header("Innings 1")
+
 # st.write(resultdata[['col','MAPE']])
 # metric_cols=[k for k in reg_cols if 'MAPE' in k]     
 try:
     resultdata=appdata[tg_cols[2]].values[0]
+    st.header("Innings 1")
     st.write("MAPE:",resultdata)
 
     for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
