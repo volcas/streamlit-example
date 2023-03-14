@@ -169,7 +169,7 @@ try:
     dd=sumdata[col].values[0]
     st.header("Model result metrics for the TG: Innings 1")
     st.write(resultdata[['col','MAPE']])
-    st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
+    st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
     
     
     for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
@@ -218,7 +218,7 @@ try:
         st.header("Model result metrics for the TG: Innings 2")
         st.write(resultdata[['col','MAPE']])
         
-        st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
+        st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
 
    
 

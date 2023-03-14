@@ -55,7 +55,7 @@ innings1_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInnings
 # sheet_url = st.secrets["private_gsheets_url_2"]
 # rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-innings1_result=pd.DataFrame([['Universe_total',19.87641282,0.1598737151]], columns=['col', 'MSE', 'MAPE'])
+innings1_result=pd.DataFrame([['Universe_total',0.095298871,0.162203503]], columns=['col', 'MSE', 'MAPE'])
 
 # innings1_result=pd.DataFrame.from_records(rows)
 # innings1_result.columns=['col', 'MSE', 'MAPE']
@@ -79,7 +79,7 @@ innings2_data=pd.DataFrame.from_records(rows)
 innings2_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
        'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
 
-innings2_result=pd.DataFrame([['Universe_total',28.8985998737017,0.18692472522901]], columns=['col', 'MSE', 'MAPE'])
+innings2_result=pd.DataFrame([['Universe_total',0.138335216,0.174754227]], columns=['col', 'MSE', 'MAPE'])
 
 sheet_url = st.secrets["private_gsheets_url_4"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
@@ -174,7 +174,7 @@ try:
     dd=sumdata[col].values[0]
     st.header("Model result metrics for the TG: Innings 1")
     st.write(resultdata[['col','MAPE']])
-    st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
+    st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
 
    
 
@@ -221,7 +221,7 @@ try:
         st.header("Model result metrics for the TG: Innings 2")
         st.write(resultdata[['col','MAPE']])
         
-        st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
+        st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
 
    
 
