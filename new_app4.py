@@ -166,7 +166,10 @@ sumdata=innings1_sum.copy()
 sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
 # st.write(sumdata[['matchName',col]])
 try:
-    
+    st.header("Model result metrics for the TG: Innings 1")
+    st.write(resultdata[['col','MAPE']])
+
+    st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
 
    
 
@@ -192,10 +195,7 @@ try:
                                        yaxis_title="Predicted Viewership",
                                        width=500,height=400)
         
-        st.header("Model result metrics for the TG: Innings 1")
-        st.write(resultdata[['col','MAPE']])
-
-        st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
+        
         
         st.write(figure1)
 #         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
@@ -250,7 +250,7 @@ try:
 
 
 except:
-    st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
+   
     st.markdown(":blue[No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup]")
 
 # st.header("All the TG results at a glance")
