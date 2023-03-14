@@ -152,6 +152,7 @@ col=select_tg
 appdata=innings1_data.copy()
 
 # appdata=appdata[appdata['Region']==select_region]
+appdata['Datetime'] = appdata['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M")) 
 appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))] 
 appdata=appdata[appdata['tg_col']==col]                          
 appdata=appdata.reset_index().drop('index',1)
