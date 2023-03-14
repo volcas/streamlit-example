@@ -1924,7 +1924,7 @@ try:
         figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
                                        title=f"Prediction for "+ max(new['Description'])+ " on "+ date+ " (Innings1)",
                                        xaxis_title="Time of day",
-                                       yaxis_title="Predicted Viewership",
+                                       yaxis_title="Predicted Viewership(Rating %)",
                                        width=800,height=600)
 
         st.write(figure1)
@@ -1968,7 +1968,7 @@ try:
             figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
                                            title=f"Prediction for "+ max(new['Description'])+ " on "+ date+ " (Innings2)",
                                            xaxis_title="Time of day",
-                                           yaxis_title="Predicted Viewership",
+                                           yaxis_title="Predicted Viewership(Rating %)",
                                            width=800,height=600)
 
             st.write(figure1)
