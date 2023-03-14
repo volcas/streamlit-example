@@ -1829,11 +1829,21 @@ region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 select_region= st.sidebar.selectbox('Select Region',
                                     region_list)
 
+# select_tg = st.sidebar.selectbox('What TG Level?',
+#                                 ['2-12_male','2-12_female','13-21_male','13-21_female',
+#                                  '22-30_male','22-30_female','31-40_male','31-40_female',
+#                                  '41-50_male','41-50_female','51-60_male','51-60_female',
+#                                  '61+_male','61+_female','Universe_total'])  
+
 select_tg = st.sidebar.selectbox('What TG Level?',
-                                ['2-12_male','2-12_female','13-21_male','13-21_female',
-                                 '22-30_male','22-30_female','31-40_male','31-40_female',
-                                 '41-50_male','41-50_female','51-60_male','51-60_female',
-                                 '61+_male','61+_female','Universe_total'])    
+                                ['Universe_total', '2-12_total', '2-12_male',
+                                   '2-12_female', '13-21_total', '13-21_male', '13-21_female',
+                                   '22-30_total', '22-30_male', '22-30_female', '31-40_total',
+                                   '31-40_male', '31-40_female', '41-50_total', '41-50_male',
+                                   '41-50_female', '51-60_total', '51-60_male', '51-60_female',
+                                   '61+_total', '61+_male', '61+_female', 'Male_total', 'Female_total'])  
+
+
 
 team_list1=['DC','CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'SRH']    
 select_team1 = st.sidebar.selectbox('Select Team 1',
