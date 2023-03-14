@@ -1835,10 +1835,10 @@ select_tg = st.sidebar.selectbox('What TG Level?',
                                  '41-50_male','41-50_female','51-60_male','51-60_female',
                                  '61+_male','61+_female'])    
 
-team_list1=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+team_list1=['DC','CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'SRH']    
 select_team1 = st.sidebar.selectbox('Select Team 1',
                                 team_list1)    
-team_list2=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
+team_list2=['PBKS', 'CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR',  'GT', 'DC', 'SRH']    
 team_list2.remove(select_team1)
 select_team2 = st.sidebar.selectbox('Select Team 2',
                                 team_list2)   
@@ -1924,7 +1924,7 @@ try:
         figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
                                        title=f"Prediction for "+ max(new['Description'])+ " on "+ date+ " (Innings1)",
                                        xaxis_title="Time of day",
-                                       yaxis_title="Predicted Viewership(Rating %)",
+                                       yaxis_title="Predicted Viewership",
                                        width=800,height=600)
 
         st.write(figure1)
@@ -1968,7 +1968,7 @@ try:
             figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
                                            title=f"Prediction for "+ max(new['Description'])+ " on "+ date+ " (Innings2)",
                                            xaxis_title="Time of day",
-                                           yaxis_title="Predicted Viewership(Rating %)",
+                                           yaxis_title="Predicted Viewership",
                                            width=800,height=600)
 
             st.write(figure1)
