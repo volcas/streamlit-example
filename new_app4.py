@@ -165,10 +165,10 @@ resultdata=innings1_result[innings1_result['col']==col]
 sumdata=innings1_sum.copy()
 sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
 # st.write(sumdata[['matchName',col]])
-
-st.header("Model result metrics for the TG: Innings 1")
-st.write(resultdata[['col','MAPE']])
 try:
+    st.header("Model result metrics for the TG: Innings 1")
+    st.write(resultdata[['col','MAPE']])
+
     st.write("The mean viewership of the chosen TG every 5 mins:",str(sumdata[col].values[0]))
 
    
