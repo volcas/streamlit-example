@@ -1885,6 +1885,8 @@ st.write("VISUALIZE FORECASTED DATA")
 
 #     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
 
+innings1_data=innings1_data.sort_values(by="Datetime")
+innings2_data=innings2_data.sort_values(by="Datetime")
 
 
 # appdata=appdata[appdata['Region']==select_region]
