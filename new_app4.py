@@ -48,46 +48,51 @@ def run_query(query):
 
 sheet_url = st.secrets["private_gsheets_url_1"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
-
-
-result_main=pd.DataFrame.from_records(rows)
-result_main.columns=['key','rmse','mse','mape']
-
-# # appdata_main = load_data(st.secrets["private_gsheets_url_1"])
-# # result_main = load_data(st.secrets["private_gsheets_url_2"])
-
+innings1_data=pd.DataFrame.from_records(rows)
+innings1_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
+       'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
 
 sheet_url = st.secrets["private_gsheets_url_2"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings1_result=pd.DataFrame.from_records(rows)
+innings1_result.columns=['col', 'MSE', 'MAPE']
 
-# Print results.
-# for row in rows:
-#     st.write(f"{row.name} has a :{row.pet}:")
-
-
-appdata_main=pd.DataFrame.from_records(rows)
-# appdata_main.columns=['Datetime', 'timeOfDay', 'inning', 'match_name', 'Description',
-#        'Actual_2-12_male', 'Predicted_2-12_male', 'Region',
-#        'Actual_2-12_female', 'Predicted_2-12_female', 'Actual_13-21_male',
-#        'Predicted_13-21_male', 'Actual_13-21_female', 'Predicted_13-21_female',
-#        'Actual_22-30_male', 'Predicted_22-30_male', 'Actual_22-30_female',
-#        'Predicted_22-30_female', 'Actual_31-40_male', 'Predicted_31-40_male',
-#        'Actual_31-40_female', 'Predicted_31-40_female', 'Actual_41-50_male',
-#        'Predicted_41-50_male', 'Actual_41-50_female', 'Predicted_41-50_female',
-#        'Actual_51-60_male', 'Predicted_51-60_male', 'Actual_51-60_female',
-#        'Predicted_51-60_female', 'Actual_61+_male', 'Predicted_61+_male',
-#        'Actual_61+_female', 'Predicted_61+_female']
+sheet_url = st.secrets["private_gsheets_url_3"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings1_sum=pd.DataFrame.from_records(rows)
+innings1_sum.columns=['matchName', 'Universe_total', '2-12_total', '2-12_male', '2-12_female',
+       '13-21_total', '13-21_male', '13-21_female', '22-30_total',
+       '22-30_male', '22-30_female', '31-40_total', '31-40_male',
+       '31-40_female', '41-50_total', '41-50_male', '41-50_female',
+       '51-60_total', '51-60_male', '51-60_female', '61+_total', '61+_male',
+       '61+_female', 'Male_total', 'Female_total', 'fanbase', 'Order',
+       'team1Fanbase', 'team2Fanbase', 'Balls', 'AvgFirstInningsScore',
+       'Total', "Target'000_Universe"]
 
 
-# st.write(appdata_main.head(4))
-# appdata_main['Datetime']=pd.to_datetime(appdata_main['Datetime'],format="%Y-%m-%d %H:%M")
-# if data is not None and data2 is not None:
+sheet_url = st.secrets["private_gsheets_url_4"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings2_data=pd.DataFrame.from_records(rows)
+innings2_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
+       'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
 
+sheet_url = st.secrets["private_gsheets_url_5"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings2_result=pd.DataFrame.from_records(rows)
+innings2_result.columns=['col', 'MSE', 'MAPE']
 
-# st.write(appdata_main['Datetime'].astype(str).str.split().str[0])
+sheet_url = st.secrets["private_gsheets_url_6"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+innings2_sum=pd.DataFrame.from_records(rows)
+innings2_sum.columns=['matchName', 'Universe_total', '2-12_total', '2-12_male', '2-12_female',
+       '13-21_total', '13-21_male', '13-21_female', '22-30_total',
+       '22-30_male', '22-30_female', '31-40_total', '31-40_male',
+       '31-40_female', '41-50_total', '41-50_male', '41-50_female',
+       '51-60_total', '51-60_male', '51-60_female', '61+_total', '61+_male',
+       '61+_female', 'Male_total', 'Female_total', 'fanbase', 'Order',
+       'team1Fanbase', 'team2Fanbase', 'Balls', 'AvgFirstInningsScore',
+       'Total', "Target'000_Universe"]
 
-# with open('model_'+select_tg+'.pkl', 'rb') as f:
-#     svr = pickle.load(f)
 
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
@@ -129,14 +134,14 @@ st.write("VISUALIZE FORECASTED DATA")
 # appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
 
 
-innings1_data=pd.read_csv("C:/Work/IPL Prediction/Innings1_data.csv")
-innings1_result=pd.read_csv("C:/Work/IPL Prediction/Innings1_result.csv")
-innings1_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings1.csv")
+# innings1_data=pd.read_csv("C:/Work/IPL Prediction/Innings1_data.csv")
+# innings1_result=pd.read_csv("C:/Work/IPL Prediction/Innings1_result.csv")
+# innings1_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings1.csv")
 
 
-innings2_data=pd.read_csv("C:/Work/IPL Prediction/Innings2_data.csv")
-innings2_result=pd.read_csv("C:/Work/IPL Prediction/Innings2_result.csv")
-innings2_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings2.csv")
+# innings2_data=pd.read_csv("C:/Work/IPL Prediction/Innings2_data.csv")
+# innings2_result=pd.read_csv("C:/Work/IPL Prediction/Innings2_result.csv")
+# innings2_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings2.csv")
 # appdata_main=appdata_main[appdata_main['Datetime']<"2022-05-24"]
 
 
