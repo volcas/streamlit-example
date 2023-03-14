@@ -250,7 +250,7 @@ try:
 
 
 except:
-#     st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
+    st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
     st.markdown(":blue[No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup]")
 
 # st.header("All the TG results at a glance")
