@@ -123,7 +123,7 @@ select_team2 = st.sidebar.selectbox('Select Team 2',
 # min_value = 1, max_value = 365)  
 #     select_region = st.text_input('Which Region?')  
 
-st.write("VISUALIZE FORECASTED DATA")
+# st.write("VISUALIZE FORECASTED DATA")
 
 # appdata_main = pd.read_csv(data)
 # result="ResultOP.csv"
