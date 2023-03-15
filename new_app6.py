@@ -2000,7 +2000,7 @@ except:
 
     temp_df = pd.DataFrame(data)  
    
- 
+    temp_df.set_index('Date',inplace=True)
     # display table
     st.table(temp_df)
     
