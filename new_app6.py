@@ -1990,7 +1990,9 @@ try:
 
 except:
 #     st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
-    st.markdown(":blue[No matchups between these two happened after 15th may(TEST Sample).Kindly choose another matchup]")
+    st.markdown(":blue[No matchups between these two happened after 15th may(TEST Sample).Kindly choose another matchup from the following lis]")
+    
+    st.markdown("|Match| Date|------|-------|PBKS vs DC|May 16 2022||MI vs SRH|May 17 2022|KKR vs LSG|May 18 2022|RCB vs GT|May 19 2022|RR vs CSK|May 20 2022|MI vs DC|May 21 2022|SRH vs PBKS|May 22 2022")
 
 # st.header("All the TG results at a glance")
 # st.write(innings1_result[['col','MAPE']])
