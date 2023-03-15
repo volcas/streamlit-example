@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from tabulate import tabulate
+# from tabulate import tabulate
 # from fbprophet import Prophet
 # from fbprophet.diagnostics import performance_metrics
 # from fbprophet.diagnostics import cross_validation
@@ -1991,34 +1991,17 @@ try:
 
 except:
 #     st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
-    st.markdown(":blue[No matchups between these two happened after 15th may(TEST Sample).Kindly choose another matchup from the following lis]")
+    st.markdown(":blue[No matchups between these two happened after 15th may(TEST Sample).Kindly choose another matchup from the following list]")
     
     
- 
-    # assign data
-    mydata = [
-        ["Nikhil", "Delhi"],
-        ["Ravi", "Kanpur"],
-        ["Manish", "Ahmedabad"],
-        ["Prince", "Bangalore"]
-    ]
+    data = {'Match': ['PBKS vs DC', 'MI vs SRH', 'KKR vs LSG', 'RCB vs GT','RR vs CSK','MI vs DC','SRH vs PBKS'], 
+            'Date': ['May 16 2022', 'May 17 2022','May 18 2022','May 19 2022','May 20 2022','May 21 2022','May 22 2022']}  
+  
 
-    # create header
-    head = ["Name", "City"]
+    temp_df = pd.DataFrame(data)  
+   
  
     # display table
-    st.write(tabulate(mydata, headers=head, tablefmt="grid"))
+    st.table(temp_df)
     
-#     st.markdown("|Match| Date|
-# ------|-------
-# |PBKS vs DC	|May 16 2022|	
-# |MI vs SRH	|May 17 2022|	
-# |KKR vs LSG	|May 18 2022|	
-# |RCB vs GT	|May 19 2022|	
-# |RR vs CSK	|May 20 2022|	
-# |MI vs DC	|May 21 2022|	
-# |SRH vs PBKS	|May 22 2022|")
-
-# st.header("All the TG results at a glance")
-# st.write(innings1_result[['col','MAPE']])
-    
+#
