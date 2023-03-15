@@ -2007,7 +2007,7 @@ except:
     head = ["Name", "City"]
  
     # display table
-    st.markdown(tabulate(mydata, headers=head, tablefmt="grid"))
+    st.table(tabulate(mydata, headers=head, tablefmt="grid"))
     
 #     st.markdown("|Match| Date|
 # ------|-------
