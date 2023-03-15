@@ -14,7 +14,7 @@ from sklearn.svm import SVR
 import datetime
 from sklearn.metrics import mean_squared_error
 import plotly.express as px
-st.title('Time Series Forecasting Using Streamlit')
+st.title('Viewership Forecasting using Regression')
 
 # st.write("IMPORT DATA")
 # st.write("Import the time series csv file. It should have two columns labelled as 'ds' and 'y'.The 'ds' column should be of datetime format  by Pandas. The 'y' column must be numeric representing the measurement to be forecasted.")
