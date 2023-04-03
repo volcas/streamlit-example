@@ -190,11 +190,12 @@ appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['Time'].s
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata=appdata.reset_index().drop('index',1)
 
-          
+st.write(appdata)
+st.write(appdata.columns)
 # try:
     
 cc=appdata["Mux"].max()
-st.write("The peak MUX viewership of the chosen match:",str(cc))
+st.write("The peak MUX viewership of the chosen match:",cc)
 
 #     st.header("Model result metrics for the TG: Innings 1")
 #     st.write(resultdata[['col','MAPE']])
