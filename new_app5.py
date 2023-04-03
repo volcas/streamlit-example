@@ -196,9 +196,15 @@ appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDa
 appdata=appdata.reset_index().drop('index',1)
 
 # try:
+st.header("Following visualisation is for the match:")
+st.write(appdata[0]['team1']," vs ",appdata[0]['team2'], " on ",appdata[0]['Date'])
+appdata    
     
-cc=appdata["Mux"].max()
-st.write("The peak MUX viewership of the chosen match:",cc)
+cc1=appdata["Mux"].max()
+st.write("The peak MUX concurrency of the chosen match:",cc1)
+
+cc1=appdata["Universe_total_prediction"].max()
+st.write("The peak prediction concurrency of the chosen match:",cc2)
 
 #     st.header("Model result metrics for the TG: Innings 1")
 #     st.write(resultdata[['col','MAPE']])
@@ -231,7 +237,7 @@ figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,col
                                title="MAPE:"+str(mape),
                                xaxis_title="Time of day",
                                yaxis_title="Predicted Viewership(Rating %)",
-                               width=1000,height=800)
+                               width=500,height=400)
 
 st.write(figure1)
 #         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
