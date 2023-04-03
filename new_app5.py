@@ -164,10 +164,10 @@ select_time = st.sidebar.selectbox('Select Time',
 # Combining actual with predictions Model 1
 
 actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
-st.write(model1_data['Date'].dtype)
+# st.write(model1_data['Date'].dtype)
 
 model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%d-%m-%Y')
-st.write(model1_data['Date'].dtype)
+# st.write(model1_data['Date'].dtype)
 
 model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
 model1_data['Time']=model1_data['Time'].astype(str)
@@ -177,7 +177,7 @@ model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['
 # Removing the first match
 model1_data=model1_data[model1_data['Date']!='31-03-2023']
 
-combined_df=model1_data.merge(actual_data,on='Datetime',how='left')
+combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
 
 # Removing matches yet to happen
 combined_df.dropna(inplace=True)
