@@ -195,7 +195,7 @@ appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDa
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata=appdata.reset_index().drop('index',1)
 
-if !appdata.empty:
+if not appdata.empty:
 
     st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
     st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
@@ -264,7 +264,7 @@ else:
     # appdata=appdata[appdata['tg_col']==col]                          
     appdata=appdata.reset_index().drop('index',1)
     
-    if !appdata.empty:
+    if not appdata.empty:
 
             st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
