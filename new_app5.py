@@ -46,11 +46,13 @@ def run_query(query):
     rows = rows.fetchall()
     return rows
 
+# BARC MODEL(Model 1) Prediction
 sheet_url = st.secrets["private_gsheets_url_1"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
-innings1_data=pd.DataFrame.from_records(rows)
-innings1_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
-       'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
+model1_data=pd.DataFrame.from_records(rows)
+model1_data.columns=['Date', 'Time', 'Balls', 'team1', 'team2', 'Venue', 'Stadium',
+       'team1Fanbase', 'team2Fanbase', 'typeOfDay', 'Festival', 'inning',
+       'timeOfDay', 'AvgFirstInningsScore', 'Universe_total_prediction']
 
 # sheet_url = st.secrets["private_gsheets_url_2"]
 # rows = run_query(f'SELECT * FROM "{sheet_url}"')
@@ -62,36 +64,22 @@ innings1_result=pd.DataFrame([['Universe_total',0.095298871,0.162203503]], colum
 
 sheet_url = st.secrets["private_gsheets_url_2"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
-innings1_sum=pd.DataFrame.from_records(rows)
-innings1_sum.columns=['matchName', 'Universe_total', '2-12_total', '2-12_male', '2-12_female',
-       '13-21_total', '13-21_male', '13-21_female', '22-30_total',
-       '22-30_male', '22-30_female', '31-40_total', '31-40_male',
-       '31-40_female', '41-50_total', '41-50_male', '41-50_female',
-       '51-60_total', '51-60_male', '51-60_female', '61+_total', '61+_male',
-       '61+_female', 'Male_total', 'Female_total', 'fanbase', 'Order',
-       'team1Fanbase', 'team2Fanbase', 'Balls', 'AvgFirstInningsScore',
-       'Total', "Target'000_Universe"]
+actual_data=pd.DataFrame.from_records(rows)
+actual_data.columns=['Time', 'Concurrency Source', 'Mux', 'Last9', 'Manual Override',
+       'Reported Concurrency', 'Final Concurrency',
+       'Final Concurrency Display', 'Final Concurrency Source', 'Normalized',
+       'Datetime']
 
 
-sheet_url = st.secrets["private_gsheets_url_3"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-innings2_data=pd.DataFrame.from_records(rows)
-innings2_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
-       'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
+if st.secrets["private_gsheets_url_3"]!="Empty":
+    sheet_url = st.secrets["private_gsheets_url_3"]
+    rows = run_query(f'SELECT * FROM "{sheet_url}"')
+    innings2_data=pd.DataFrame.from_records(rows)
+    innings2_data.columns=['Balls', 'team1Fanbase', 'team2Fanbase', 'AvgFirstInningsScore',
+           'Datetime', 'matchName', 'predictions', 'actuals', 'tg_col']
 
-innings2_result=pd.DataFrame([['Universe_total',0.138335216,0.174754227]], columns=['col', 'MSE', 'MAPE'])
+    innings2_result=pd.DataFrame([['Universe_total',0.138335216,0.174754227]], columns=['col', 'MSE', 'MAPE'])
 
-sheet_url = st.secrets["private_gsheets_url_4"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
-innings2_sum=pd.DataFrame.from_records(rows)
-innings2_sum.columns=['matchName', 'Universe_total', '2-12_total', '2-12_male', '2-12_female',
-       '13-21_total', '13-21_male', '13-21_female', '22-30_total',
-       '22-30_male', '22-30_female', '31-40_total', '31-40_male',
-       '31-40_female', '41-50_total', '41-50_male', '41-50_female',
-       '51-60_total', '51-60_male', '51-60_female', '61+_total', '61+_male',
-       '61+_female', 'Male_total', 'Female_total', 'fanbase', 'Order',
-       'team1Fanbase', 'team2Fanbase', 'Balls', 'AvgFirstInningsScore',
-       'Total', "Target'000_Universe"]
 
 
 
@@ -111,151 +99,188 @@ innings2_sum.columns=['matchName', 'Universe_total', '2-12_total', '2-12_male', 
 
 
 
+match_schedule=
+{
+#  '2023-03-31': ['19:30:00'],
+ '2023-04-01': ['19:30:00', '15:30:00'],
+ '2023-04-02': ['19:30:00', '15:30:00'],
+ '2023-04-03': ['19:30:00'],
+ '2023-04-04': ['19:30:00'],
+ '2023-04-05': ['19:30:00'],
+ '2023-04-06': ['19:30:00'],
+ '2023-04-07': ['19:30:00'],
+ '2023-04-08': ['15:30:00', '19:30:00'],
+ '2023-04-09': ['19:30:00', '15:30:00'],
+ '2023-04-10': ['19:30:00'],
+ '2023-04-11': ['19:30:00'],
+ '2023-04-12': ['19:30:00'],
+ '2023-04-13': ['19:30:00'],
+ '2023-04-14': ['19:30:00'],
+ '2023-04-15': ['15:30:00', '19:30:00'],
+ '2023-04-16': ['19:30:00', '15:30:00'],
+ '2023-04-17': ['19:30:00'],
+ '2023-04-18': ['19:30:00'],
+ '2023-04-19': ['19:30:00'],
+ '2023-04-20': ['15:30:00', '19:30:00'],
+ '2023-04-21': ['19:30:00'],
+ '2023-04-22': ['19:30:00', '15:30:00'],
+ '2023-04-23': ['15:30:00', '19:30:00'],
+ '2023-04-24': ['19:30:00'],
+ '2023-04-25': ['19:30:00'],
+ '2023-04-26': ['19:30:00'],
+ '2023-04-27': ['19:30:00'],
+ '2023-04-28': ['19:30:00'],
+ '2023-04-29': ['19:30:00', '15:30:00'],
+ '2023-04-30': ['15:30:00', '19:30:00'],
+ '2023-05-01': ['19:30:00'],
+ '2023-05-02': ['19:30:00'],
+ '2023-05-03': ['19:30:00'],
+ '2023-05-04': ['19:30:00', '15:30:00'],
+ '2023-05-05': ['19:30:00'],
+ '2023-05-06': ['15:30:00', '19:30:00'],
+ '2023-05-07': ['20:00:00', '19:30:00'],
+ '2023-05-08': ['19:30:00'],
+ '2023-05-09': ['19:30:00'],
+ '2023-05-10': ['19:30:00'],
+ '2023-05-11': ['19:30:00'],
+ '2023-05-12': ['19:30:00'],
+ '2023-05-13': ['15:30:00', '19:30:00'],
+ '2023-05-14': ['19:30:00', '15:30:00'],
+ '2023-05-15': ['19:30:00'],
+ '2023-05-16': ['19:30:00'],
+ '2023-05-17': ['19:30:00'],
+ '2023-05-18': ['19:30:00'],
+ '2023-05-19': ['19:30:00'],
+ '2023-05-20': ['19:30:00', '15:30:00'],
+ '2023-05-21': ['19:30:00', '15:30:00']}
 
-team_list1=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-select_team1 = st.sidebar.selectbox('Select Team 1',
-                                team_list1)    
-team_list2=['CSK', 'MI', 'RCB', 'LSG', 'RR', 'KKR', 'PBKS', 'GT', 'DC', 'SRH']    
-team_list2.remove(select_team1)
-select_team2 = st.sidebar.selectbox('Select Team 2',
-                                team_list2)   
+date_list=list(match_schedule.keys())    
+select_date = st.sidebar.selectbox('Select Date',
+                                date_list)    
+time_list=list(match_schedule[date_list])    
+select_time = st.sidebar.selectbox('Select Time',
+                                time_list)   
 
 
 
-# periods_input = st.number_input('How many days forecast do you want?',
-# min_value = 1, max_value = 365)  
-#     select_region = st.text_input('Which Region?')  
+# Combining actual with predictions Model 1
 
-# st.write("VISUALIZE FORECASTED DATA")
+actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
+model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
+model1_data['Time']=model1_data['Time'].astype(str)
+# pred_df['Date']=pd.to_datetime(pred_df['Date'])
+model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['Time'], format="%d-%m-%Y %H:%M:%S")
 
-# appdata_main = pd.read_csv(data)
-# result="ResultOP.csv"
-# result_main=pd.read_csv(result)
-# appdata_main=extra.merge(df_new, on=['Datetime','inning','matchName','timeOfDay'],how='left',suffixes=('', '_y'))
+# Removing the first match
+model1_data=model1_data[model1_data['Date']!='31-03-2023']
 
+combined_df=model1_data.merge(actual_data,on='Datetime',how='left')
 
-# appdata_main['Datetime'] = appdata_main['Datetime'].apply(lambda x: datetime.datetime.strftime(datetime.datetime.strptime(x, "%d-%m-%Y %H:%M"), "%Y-%m-%d %H:%M"))    
-
-
-# innings1_data=pd.read_csv("C:/Work/IPL Prediction/Innings1_total_data.csv")
-# innings1_result=pd.read_csv("C:/Work/IPL Prediction/Innings1_total_result.csv")
-# innings1_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings1.csv")
+# Removing matches yet to happen
+combined_df.dropna(inplace=True)
 
 
-# innings2_data=pd.read_csv("C:/Work/IPL Prediction/Innings2_total_data.csv")
-# innings2_result=pd.read_csv("C:/Work/IPL Prediction/Innings2_total_result.csv")
-# innings2_sum=pd.read_csv("C:/Work/IPL Prediction/mean_viewership_team_innings2.csv")
-# appdata_main=appdata_main[appdata_main['Datetime']<"2022-05-24"]
+appdata=combined_df.copy()
 
-
-# if data is not None:
-col='Universe_total'
-#     offset = df[df['Datetime']<'2022-05-21'].shape[0]   ## for train test split
-
-appdata=innings1_data.copy()
-
-# appdata=appdata[appdata['Region']==select_region]
   
-appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))] 
-appdata=appdata[appdata['tg_col']==col]                          
+appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['Time'].str.contains(select_time))] 
+# appdata=appdata[appdata['tg_col']==col]                          
 appdata=appdata.reset_index().drop('index',1)
 
-                          
-              
-resultdata=innings1_result[innings1_result['col']==col]
-
-
-
-sumdata=innings1_sum.copy()
-sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
-# st.write(sumdata[['matchName',col]])
-
+          
 try:
     
-    dd=sumdata[col].values[0]
-    st.header("Model result metrics for the TG: Innings 1")
-    st.write(resultdata[['col','MAPE']])
-    st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
+    cc=max(appdata[Mux])
+    st.write("The peak MUX viewership of the chosen match:",str(cc))
+
+#     st.header("Model result metrics for the TG: Innings 1")
+#     st.write(resultdata[['col','MAPE']])
 
    
 
-    for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
-        new=appdata[appdata['Datetime'].astype(str).str.contains(date)]
-        figure1 =px.line(
-            data_frame =new,
-                    x = new['Datetime'],
-                    y=["predictions","actuals"],
-            color_discrete_sequence=['red', "blue"])
+    for date in np.unique(combined_df['Date']):
+    for time in ['afternoon', 'evening']:
+#         for inning in ['inning1','inning2']:
+            new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+            mape = mean_absolute_percentage_error(new['Mux'], new['Universe_total_prediction'])
 
-                # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                # fig2.update_xaxes(tickangle=290)
-        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title=f"Prediction for "+ max(new['matchName'])+ " on "+ date+ " (Innings1)",
-                                       xaxis_title="Time of day",
-                                       yaxis_title="Predicted Viewership(Rating %)",
-                                       width=500,height=400)
-
-        st.write(figure1)
-#         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
-        
-        # INNINGS 2
-        appdata=innings2_data.copy()
-
-        # appdata=appdata[appdata['Region']==select_region]
-        appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))] 
-        appdata=appdata[appdata['tg_col']==col]                          
-        appdata=appdata.reset_index().drop('index',1)
-
-
-
-        resultdata=innings2_result[innings2_result['col']==col]
-        sumdata=innings2_sum.copy()
-        sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
-        # st.write(sumdata[['matchName',col]])
-
-        st.header("Model result metrics for the TG: Innings 2")
-        st.write(resultdata[['col','MAPE']])
-        
-        st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
-
-   
-
-        for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
-            new=appdata[appdata['Datetime'].astype(str).str.contains(date)]
             figure1 =px.line(
-                data_frame =new,
-                        x = new['Datetime'],
-                        y=["predictions","actuals"],
-                color_discrete_sequence=['red', "blue"])
+                        data_frame =new,
+                                x = new['Datetime'],
+                                y=["Mux","Universe_total_prediction"],
+                color_discrete_sequence=['green',"blue"],
+    #                     text=mape
+            )
 
-                    # fig2.update_traces(textposition=sample_df['textPosition'])
+                            # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                    #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                    #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                    # fig2.update_xaxes(tickangle=290)
+                            # fig2.update_xaxes(tickangle=290)
             figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title=f"Prediction for "+ max(new['matchName'])+ " on "+ date+ " (Innings2)",
+                                           title="MAPE:"+str(mape),
                                            xaxis_title="Time of day",
                                            yaxis_title="Predicted Viewership(Rating %)",
-                                           width=500,height=400)
+                                           width=1000,height=800)
 
             st.write(figure1)
-            st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
+#         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
+        
+#         # INNINGS 2
+#         appdata=innings2_data.copy()
+
+#         # appdata=appdata[appdata['Region']==select_region]
+#         appdata=appdata[(appdata['matchName'].str.contains(select_team1)) & (appdata['matchName'].str.contains(select_team2))] 
+#         appdata=appdata[appdata['tg_col']==col]                          
+#         appdata=appdata.reset_index().drop('index',1)
+
+
+
+#         resultdata=innings2_result[innings2_result['col']==col]
+#         sumdata=innings2_sum.copy()
+#         sumdata=sumdata[(sumdata['matchName'].str.contains(select_team1)) & (sumdata['matchName'].str.contains(select_team2))] 
+#         # st.write(sumdata[['matchName',col]])
+
+#         st.header("Model result metrics for the TG: Innings 2")
+#         st.write(resultdata[['col','MAPE']])
+        
+#         st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
+
+   
+
+#         for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
+#             new=appdata[appdata['Datetime'].astype(str).str.contains(date)]
+#             figure1 =px.line(
+#                 data_frame =new,
+#                         x = new['Datetime'],
+#                         y=["predictions","actuals"],
+#                 color_discrete_sequence=['red', "blue"])
+
+#                     # fig2.update_traces(textposition=sample_df['textPosition'])
+
+#                     #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+#                     #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+#                     # fig2.update_xaxes(tickangle=290)
+#             figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+#                                            title=f"Prediction for "+ max(new['matchName'])+ " on "+ date+ " (Innings2)",
+#                                            xaxis_title="Time of day",
+#                                            yaxis_title="Predicted Viewership(Rating %)",
+#                                            width=500,height=400)
+
+#             st.write(figure1)
+#             st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
 
 
 except:
 #     st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
-    st.markdown(":blue[No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup]")
+    st.markdown(":blue[No data for this date]")
 
 # st.header("All the TG results at a glance")
 # st.write(innings1_result[['col','MAPE']])
