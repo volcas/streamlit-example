@@ -197,8 +197,8 @@ appdata=appdata.reset_index().drop('index',1)
 
 if not appdata.empty:
 
-    st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
-    st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+    st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+#     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
 
     cc1=appdata["Mux"].max()
     st.write("The peak MUX concurrency of the chosen match:",cc1)
