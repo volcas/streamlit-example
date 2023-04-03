@@ -172,7 +172,11 @@ model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%d-%m-%Y')
 model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
 model1_data['Time']=model1_data['Time'].astype(str)
 
-model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['Time'])
+st.write(model1_data['Date'])
+
+st.write(model1_data['Time'])
+
+model1_data['Datetime']=model1_data['Date'] + " " + model1_data['Time']
 
 # Removing the first match
 model1_data=model1_data[model1_data['Date']!='31-03-2023']
