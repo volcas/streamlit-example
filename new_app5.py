@@ -186,13 +186,15 @@ combined_df.dropna(inplace=True)
 
 appdata=combined_df.copy()
 
-  
-appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['Time'].str.contains(select_time))] 
+timeOfDay='evening'
+if select_time=='15:30:00':
+    timeOfDay='afternoon
+
+
+appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata=appdata.reset_index().drop('index',1)
 
-st.write(appdata)
-st.write(appdata.columns)
 # try:
     
 cc=appdata["Mux"].max()
@@ -203,35 +205,35 @@ st.write("The peak MUX viewership of the chosen match:",cc)
 
 
 
-for date in np.unique(combined_df['Date']):
-    for time in ['afternoon', 'evening']:
+# for date in np.unique(combined_df['Date']):
+#     for time in ['afternoon', 'evening']:
 #         for inning in ['inning1','inning2']:
-        new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-        mape = mean_absolute_percentage_error(new['Mux'], new['Universe_total_prediction'])
+#         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+mape = mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction'])
 
-        figure1 =px.line(
-                    data_frame =new,
-                            x = new['Datetime'],
-                            y=["Mux","Universe_total_prediction"],
-            color_discrete_sequence=['green',"blue"],
+figure1 =px.line(
+            data_frame =appdata,
+                    x = appdata['Datetime'],
+                    y=["Mux","Universe_total_prediction"],
+    color_discrete_sequence=['green',"blue"],
 #                     text=mape
-        )
+)
 
-                        # fig2.update_traces(textposition=sample_df['textPosition'])
+                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                        #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                        #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                        # fig2.update_xaxes(tickangle=290)
-        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="MAPE:"+str(mape),
-                                       xaxis_title="Time of day",
-                                       yaxis_title="Predicted Viewership(Rating %)",
-                                       width=1000,height=800)
+                # fig2.update_xaxes(tickangle=290)
+figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                               title="MAPE:"+str(mape),
+                               xaxis_title="Time of day",
+                               yaxis_title="Predicted Viewership(Rating %)",
+                               width=1000,height=800)
 
-        st.write(figure1)
+st.write(figure1)
 #         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
 
 #         # INNINGS 2
