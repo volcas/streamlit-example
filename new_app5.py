@@ -203,7 +203,7 @@ appdata
 cc1=appdata["Mux"].max()
 st.write("The peak MUX concurrency of the chosen match:",cc1)
 
-cc1=appdata["Universe_total_prediction"].max()
+cc2=appdata["Universe_total_prediction"].max()
 st.write("The peak prediction concurrency of the chosen match:",cc2)
 
 #     st.header("Model result metrics for the TG: Innings 1")
