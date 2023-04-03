@@ -197,7 +197,7 @@ appdata=appdata.reset_index().drop('index',1)
 
 # try:
 st.header("Following visualisation is for the match:")
-st.header(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
     
     
 cc1=appdata["Mux"].max()
