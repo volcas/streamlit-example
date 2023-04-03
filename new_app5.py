@@ -188,7 +188,7 @@ appdata=combined_df.copy()
 
 timeOfDay='evening'
 if select_time=='15:30:00':
-    timeOfDay='afternoon
+    timeOfDay='afternoon'
 
 
 appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
