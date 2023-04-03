@@ -197,8 +197,8 @@ appdata=appdata.reset_index().drop('index',1)
 
 # try:
 st.header("Following visualisation is for the match:")
-st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
-appdata    
+st.header(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+    
     
 cc1=appdata["Mux"].max()
 st.write("The peak MUX concurrency of the chosen match:",cc1)
@@ -237,7 +237,7 @@ figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,col
                                title="MAPE:"+str(mape),
                                xaxis_title="Time of day",
                                yaxis_title="Predicted Viewership(Rating %)",
-                               width=500,height=400)
+                               width=800,height=500)
 
 st.write(figure1)
 #         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
