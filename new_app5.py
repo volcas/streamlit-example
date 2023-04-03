@@ -11,7 +11,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 import datetime
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error,mean_absolute_percentage_error
 import plotly.express as px
 st.title('Viewership Forecasting using Regression')
 
@@ -172,19 +172,10 @@ model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%Y-%m-%d')
 model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
 model1_data['Time']=model1_data['Time'].astype(str)
 
-st.write(model1_data['Date'])
-
-st.write(model1_data['Time'])
-
 model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['Time'], format="%Y-%m-%d %H:%M:%S")
 
 # Removing the first match
 model1_data=model1_data[model1_data['Date']!='31-03-2023']
-
-st.write(model1_data['Datetime'])
-
-st.write(actual_data['Datetime'])
-
 
 
 combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
