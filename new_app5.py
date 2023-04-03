@@ -203,8 +203,8 @@ if not appdata.empty:
     cc1=appdata["Mux"].max()
     st.write("The peak MUX concurrency of the chosen match:",cc1)
 
-    cc2=appdata["Last9"].max()
-    st.write("The peak MUX concurrency of the chosen match:",cc2)
+#     cc2=appdata["Last9"].max()
+#     st.write("The peak MUX concurrency of the chosen match:",cc2)
     
     cc3=appdata["Universe_total_prediction"].max()
     st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc3)
@@ -223,8 +223,8 @@ if not appdata.empty:
     figure1 =px.line(
                 data_frame =appdata,
                         x = appdata['Datetime'],
-                        y=["Mux","Last9","Universe_total_prediction"],
-        color_discrete_sequence=['green','grey','blue'],
+                        y=["Mux","Universe_total_prediction"],
+        color_discrete_sequence=['green','blue'],
     #                     text=mape
     )
 
