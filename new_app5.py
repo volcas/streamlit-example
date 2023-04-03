@@ -191,47 +191,47 @@ appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['Time'].s
 appdata=appdata.reset_index().drop('index',1)
 
           
-try:
+# try:
     
-    cc=max(appdata[Mux])
-    st.write("The peak MUX viewership of the chosen match:",str(cc))
+cc=max(appdata[Mux])
+st.write("The peak MUX viewership of the chosen match:",str(cc))
 
 #     st.header("Model result metrics for the TG: Innings 1")
 #     st.write(resultdata[['col','MAPE']])
 
-   
 
-    for date in np.unique(combined_df['Date']):
-        for time in ['afternoon', 'evening']:
+
+for date in np.unique(combined_df['Date']):
+    for time in ['afternoon', 'evening']:
 #         for inning in ['inning1','inning2']:
-            new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-            mape = mean_absolute_percentage_error(new['Mux'], new['Universe_total_prediction'])
+        new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+        mape = mean_absolute_percentage_error(new['Mux'], new['Universe_total_prediction'])
 
-            figure1 =px.line(
-                        data_frame =new,
-                                x = new['Datetime'],
-                                y=["Mux","Universe_total_prediction"],
-                color_discrete_sequence=['green',"blue"],
-    #                     text=mape
-            )
+        figure1 =px.line(
+                    data_frame =new,
+                            x = new['Datetime'],
+                            y=["Mux","Universe_total_prediction"],
+            color_discrete_sequence=['green',"blue"],
+#                     text=mape
+        )
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
+                        # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                        #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                        #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                            # fig2.update_xaxes(tickangle=290)
-            figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title="MAPE:"+str(mape),
-                                           xaxis_title="Time of day",
-                                           yaxis_title="Predicted Viewership(Rating %)",
-                                           width=1000,height=800)
+                        # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                       title="MAPE:"+str(mape),
+                                       xaxis_title="Time of day",
+                                       yaxis_title="Predicted Viewership(Rating %)",
+                                       width=1000,height=800)
 
-            st.write(figure1)
+        st.write(figure1)
 #         st.write("The above plot shows the predicted and actual ratings of the selected TGs on the left dropdown")
-        
+
 #         # INNINGS 2
 #         appdata=innings2_data.copy()
 
@@ -249,10 +249,10 @@ try:
 
 #         st.header("Model result metrics for the TG: Innings 2")
 #         st.write(resultdata[['col','MAPE']])
-        
+
 #         st.write("The mean viewership of the chosen TG:",str(sumdata[col].values[0]))
 
-   
+
 
 #         for date in np.unique(appdata['Datetime'].astype(str).str.split().str[0]):
 #             new=appdata[appdata['Datetime'].astype(str).str.contains(date)]
@@ -281,9 +281,9 @@ try:
 
 
 
-except:
+# except:
 #     st.write("No matchups between these two happened after 1st may(TEST Sample).Kindly choose another matchup")  
-    st.markdown(":blue[No data for this date]")
+#     st.markdown(":blue[No data for this date]")
 
 # st.header("All the TG results at a glance")
 # st.write(innings1_result[['col','MAPE']])
