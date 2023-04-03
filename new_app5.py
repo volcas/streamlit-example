@@ -220,8 +220,8 @@ if not appdata.empty:
     figure1 =px.line(
                 data_frame =appdata,
                         x = appdata['Datetime'],
-                        y=["Mux","Universe_total_prediction"],
-        color_discrete_sequence=['green',"blue"],
+                        y=["Mux","Last9","Universe_total_prediction"],
+        color_discrete_sequence=['green','yellow','blue'],
     #                     text=mape
     )
 
