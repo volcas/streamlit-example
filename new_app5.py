@@ -166,7 +166,7 @@ select_time = st.sidebar.selectbox('Select Time',
 actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
 # st.write(model1_data['Date'].dtype)
 
-model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%d-%m-%Y')
+# model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%d-%m-%Y')
 # st.write(model1_data['Date'].dtype)
 
 model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
