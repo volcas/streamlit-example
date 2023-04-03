@@ -193,7 +193,7 @@ appdata=appdata.reset_index().drop('index',1)
           
 # try:
     
-cc=max(appdata["Mux"])
+cc=appdata["Mux"].max()
 st.write("The peak MUX viewership of the chosen match:",str(cc))
 
 #     st.header("Model result metrics for the TG: Innings 1")
