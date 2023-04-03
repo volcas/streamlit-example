@@ -250,7 +250,7 @@ if not appdata.empty:
 
         innings2_result=pd.DataFrame([['Universe_total',0.138335216,0.174754227]], columns=['col', 'MSE', 'MAPE'])
     else:
-        st.markdown(":blue[TBA:Model no.2]")
+        st.markdown(":blue[TBA-Predictions from Model no.2]")
 
 else:
     appdata=model1_data.copy()
@@ -266,8 +266,8 @@ else:
     
     if not appdata.empty:
 
-            st.write(appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
-            st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+            st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+#             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
 
 #             cc1=appdata["Mux"].max()
 #             st.write("The peak MUX concurrency of the chosen match:",cc1)
@@ -322,7 +322,7 @@ else:
 
                 innings2_result=pd.DataFrame([['Universe_total',0.138335216,0.174754227]], columns=['col', 'MSE', 'MAPE'])
             else:
-                st.markdown(":blue[TBA:Model no.2]")
+                st.markdown(":blue[TBA-Predictions from Model no.2]")
 
     
 
