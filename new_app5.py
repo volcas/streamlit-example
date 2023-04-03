@@ -153,8 +153,9 @@ match_schedule={'2023-04-01': ['19:30:00', '15:30:00'],
 
 date_list=list(match_schedule.keys())    
 select_date = st.sidebar.selectbox('Select Date',
-                                date_list)    
-time_list=list(match_schedule[date_list])    
+                                date_list)  
+
+time_list=list(match_schedule[select_date])    
 select_time = st.sidebar.selectbox('Select Time',
                                 time_list)   
 
