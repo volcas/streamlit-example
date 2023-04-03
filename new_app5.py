@@ -177,6 +177,12 @@ model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['
 # Removing the first match
 model1_data=model1_data[model1_data['Date']!='31-03-2023']
 
+st.write(model1_data['Datetime'])
+
+st.write(actual_data['Datetime'])
+
+
+
 combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
 
 # Removing matches yet to happen
