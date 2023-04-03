@@ -196,7 +196,7 @@ try:
    
 
     for date in np.unique(combined_df['Date']):
-    for time in ['afternoon', 'evening']:
+        for time in ['afternoon', 'evening']:
 #         for inning in ['inning1','inning2']:
             new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
             mape = mean_absolute_percentage_error(new['Mux'], new['Universe_total_prediction'])
