@@ -168,7 +168,7 @@ actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
 # st.write(model1_data['Date'].dtype)
 
 model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%Y-%m-%d')
-# st.write(model1_data['Date'].dtype)
+st.write(model1_data['Date'])
 
 model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
 model1_data['Time']=model1_data['Time'].astype(str)
