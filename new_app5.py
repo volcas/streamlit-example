@@ -183,6 +183,7 @@ st.write(model1_data['Datetime'])
 
 
 combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
+st.write(actual_data['Datetime'])
 
 # Removing matches yet to happen
 combined_df.dropna(inplace=True)
