@@ -339,7 +339,7 @@ model2_data['Datetime']=pd.to_datetime(model2_data['Date'] + " " + model2_data['
 
 
 combined_df2=model2_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
-# st.write(actual_data['Datetime'])
+st.write(combined_df2)
 
 # Removing matches yet to happen
 combined_df2.dropna(inplace=True)
@@ -355,8 +355,6 @@ if select_time=='15:30:00':
 appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata2=appdata2.reset_index().drop('index',1)
-
-st.write(appdata2)
 
 if not appdata2.empty:
 
