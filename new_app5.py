@@ -316,6 +316,7 @@ else:
         st.markdown(":blue[Neither Predictions nor actual data is available]")
         
 
+st.header("MODEL 2")        
 # FOR MODEL 2        
 
 # Combining actual with predictions Model 2
