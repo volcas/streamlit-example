@@ -58,7 +58,7 @@ model1_data.columns=['Date', 'Time', 'team1', 'team2', 'Venue', 'Stadium','Balls
 # sheet_url = st.secrets["private_gsheets_url_2"]
 # rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-innings1_result=pd.DataFrame([['Universe_total',0.095298871,0.162203503]], columns=['col', 'MSE', 'MAPE'])
+# innings1_result=pd.DataFrame([['Universe_total',0.095298871,0.162203503]], columns=['col', 'MSE', 'MAPE'])
 
 # innings1_result=pd.DataFrame.from_records(rows)
 # innings1_result.columns=['col', 'MSE', 'MAPE']
@@ -318,7 +318,7 @@ else:
 
 # FOR MODEL 2        
 
-# Combining actual with predictions Model 1
+# Combining actual with predictions Model 2
 
 # actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
 # st.write(model1_data['Date'].dtype)
@@ -355,6 +355,8 @@ if select_time=='15:30:00':
 appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata2=appdata2.reset_index().drop('index',1)
+
+st.write(appdata2)
 
 if not appdata2.empty:
 
