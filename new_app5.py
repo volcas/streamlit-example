@@ -339,7 +339,8 @@ model2_data['Datetime']=pd.to_datetime(model2_data['Date'] + " " + model2_data['
 
 
 combined_df2=model2_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
-st.write(combined_df2)
+st.write(actual_data['Datetime'])
+st.write(combined_df2['Datetime'])
 
 # Removing matches yet to happen
 combined_df2.dropna(inplace=True)
