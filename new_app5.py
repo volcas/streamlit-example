@@ -351,14 +351,14 @@ timeOfDay='evening'
 if select_time=='15:30:00':
     timeOfDay='afternoon'
 
-st.write(appdata2)
-st.write(select_date)
-st.write(timeOfDay)
+# st.write(appdata2)
+# st.write(select_date)
+# st.write(timeOfDay)
 
 appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
 # appdata=appdata[appdata['tg_col']==col]                          
 appdata2=appdata2.reset_index().drop('index',1)
-st.write(appdata2)
+# st.write(appdata2)
 if not appdata2.empty:
 
     st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
@@ -471,7 +471,7 @@ else:
             
             
     else:
-        st.markdown(":blue[Neither Predictions nor actual data is available]")
+        st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
 
 
 
