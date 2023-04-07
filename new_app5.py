@@ -351,6 +351,7 @@ timeOfDay='evening'
 if select_time=='15:30:00':
     timeOfDay='afternoon'
 
+st.write(appdata2)
 
 appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
 # appdata=appdata[appdata['tg_col']==col]                          
