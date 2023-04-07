@@ -50,7 +50,8 @@ def run_query(query):
 sheet_url = st.secrets["private_gsheets_url_1"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 model1_data=pd.DataFrame.from_records(rows)
-model1_data.columns=['Date', 'Time', 'Balls', 'team1', 'team2', 'Venue', 'Stadium',
+
+model1_data.columns=['Date', 'Time', 'team1', 'team2', 'Venue', 'Stadium','Balls', 
        'team1Fanbase', 'team2Fanbase', 'typeOfDay', 'Festival', 'inning',
        'timeOfDay', 'AvgFirstInningsScore', 'Universe_total_prediction']
 
