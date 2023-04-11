@@ -208,7 +208,8 @@ if not appdata.empty:
 
     cc1=appdata["Mux"].max()
     st.write("The peak MUX concurrency of the chosen match:",cc1)
-
+#     '$This text is italicized $'
+    st.markdown('$this text __ is red$')
 #     cc2=appdata["Last9"].max()
 #     st.write("The peak MUX concurrency of the chosen match:",cc2)
     
