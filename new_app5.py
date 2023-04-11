@@ -206,13 +206,13 @@ if not appdata.empty:
     st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
 #     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
 
-    cc1=appdata["Mux"].max()
+    cc1=actual_data["Mux"].max()
     st.write("The peak MUX concurrency of the chosen match:",cc1)
 
 #     cc2=appdata["Last9"].max()
 #     st.write("The peak MUX concurrency of the chosen match:",cc2)
     
-    cc3=appdata["Universe_total_prediction"].max()
+    cc3=model1_data["Universe_total_prediction"].max()
     st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc3)
 
     #     st.header("Model result metrics for the TG: Innings 1")
