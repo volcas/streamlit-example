@@ -508,13 +508,13 @@ figure1 =px.line(
 
 
                             # fig2.update_xaxes(tickangle=290)
-            figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title="BARC Model Prediction",
-                                           xaxis_title="Time of day",
-                                           yaxis_title="Concurrency",
-                                           width=800,height=500)
+figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                               title="BARC Model Prediction",
+                               xaxis_title="Time of day",
+                               yaxis_title="Concurrency",
+                               width=800,height=500)
 
-            st.write(figure1)
+st.write(figure1)
 
         
         
