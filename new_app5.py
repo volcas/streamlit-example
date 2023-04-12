@@ -83,6 +83,16 @@ model2_data.columns=['Date', 'Time', 'team1', 'team2', 'Venue', 'Stadium','Balls
 
 
 
+sheet_url = st.secrets["private_gsheets_url_4"]
+rows = run_query(f'SELECT * FROM "{sheet_url}"')
+stats_data=pd.DataFrame.from_records(rows)
+
+stats_data.columns=['match_no', 'matchdate', 'matchtime_local', 'team1_name', 'team2_name',
+       'match_filename', 'Actual Peak Concurrency',
+       'Predicted Peak Concurrency(Model 1)', 'Empty1',
+       'Actual Watch Minutes', 'Predicted Watch Minutes(Model 1)',
+       'Empty2', 'MAPE(Actual & Model1)']
+
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
@@ -474,10 +484,43 @@ else:
             
     else:
         st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
-    
-    st.header("DATA SOURCE:")
-    url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
-    st.write("You can view all the underlying data [HERE](%s)" % url)
+
+st.header("MODEL 1 Performance at a glance")
+st.write("Peak Concurrency Graph-")
+
+stats_data['Datime']=pd.to_datetime(stats_data['matchdate']+stats_data['matchtime_local'])
+
+stats_data2=stats_data.fillna(0)
+
+figure1 =px.line(
+                        data_frame =stats_data2,
+                                x = stats_data2['Datetime'],
+                                y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 1)"],
+                color_discrete_sequence=["green","blue"],
+            #                     text=mape
+            )
+
+                            # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                            # fig2.update_xaxes(tickangle=290)
+            figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                           title="BARC Model Prediction",
+                                           xaxis_title="Time of day",
+                                           yaxis_title="Concurrency",
+                                           width=800,height=500)
+
+            st.write(figure1)
+
+        
+        
+st.header("DATA SOURCE:")
+url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
+st.write("You can view all the underlying data [HERE](%s)" % url)
 
 #     st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
     
