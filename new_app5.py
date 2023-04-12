@@ -86,12 +86,12 @@ model2_data.columns=['Date', 'Time', 'team1', 'team2', 'Venue', 'Stadium','Balls
 sheet_url = st.secrets["private_gsheets_url_4"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 stats_data=pd.DataFrame.from_records(rows)
-st.write(stats_data)
-# stats_data.columns=['match_no', 'matchdate', 'matchtime_local', 'team1_name', 'team2_name',
-#        'match_filename', 'Actual Peak Concurrency',
-#        'Predicted Peak Concurrency(Model 1)',
-#        'Actual Watch Minutes', 'Predicted Watch Minutes(Model 1)',
-#      'MAPE(Actual & Model1)']
+# st.write(stats_data)
+stats_data.columns=['match_no', 'matchdate', 'matchtime_local', 'team1_name', 'team2_name',
+       'match_filename', 'Actual Peak Concurrency',
+       'Predicted Peak Concurrency(Model 1)',
+       'Actual Watch Minutes', 'Predicted Watch Minutes(Model 1)',
+     'MAPE(Actual & Model1)']
 
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
