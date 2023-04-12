@@ -488,7 +488,14 @@ else:
 st.header("MODEL 1 Performance at a glance")
 st.write("Peak Concurrency Graph-")
 
-stats_data['Datime']=pd.to_datetime(stats_data['matchdate']+stats_data['matchtime_local'])
+stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
+# st.write(model1_data['Date'])
+
+stats_data['matchtime_local']=pd.to_datetime(stats_data['matchtime_local']).dt.time
+stats_data['matchtime_local']=stats_data['matchtime_local'].astype(str)
+
+stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data['matchtime_local'], format="%Y-%m-%d %H:%M:%S")
+
 
 stats_data2=stats_data.fillna(0)
 
