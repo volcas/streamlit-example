@@ -474,9 +474,10 @@ else:
             
     else:
         st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
+    
+    st.header("DATA SOURCE:")
+    url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
+    st.write("You can view all the underlying data [HERE](%s)" % url)
 
-    url = "https://www.streamlit.io"
-    st.write("check out this [link](%s)" % url)
-    st.markdown("check out this [link](%s)" % url)
 #     st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
     
