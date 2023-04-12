@@ -384,7 +384,7 @@ if not appdata2.empty:
     #     for time in ['afternoon', 'evening']:
     #         for inning in ['inning1','inning2']:
     #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-    mape = mean_absolute_percentage_error(appdata2['Mux'], appdata2['Universe_total_prediction'])
+    mape = round(mean_absolute_percentage_error(appdata2['Mux'], appdata2['Universe_total_prediction']),2)
 
     figure1 =px.line(
                 data_frame =appdata2,
@@ -475,6 +475,8 @@ else:
     else:
         st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
 
-
-
+    url = "https://www.streamlit.io"
+    st.write("check out this [link](%s)" % url)
+    st.markdown("check out this [link](%s)" % url)
+#     st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
     
