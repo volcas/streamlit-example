@@ -487,7 +487,7 @@ else:
     else:
         st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
 
-st.header("MODEL 1 Performance at a glance")
+st.header("MODELS Performance at a glance")
 
 stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
 # st.write(model1_data['Date'])
@@ -500,6 +500,7 @@ stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data
 
 stats_data2=stats_data.dropna(0)
 stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
+stats_data3=stats_data3.dropna(0)
 
 
 stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
@@ -523,7 +524,7 @@ figure1 =px.line(
 
                             # fig2.update_xaxes(tickangle=290)
 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Peak Concurrency",
+                               title="Actual vs Predicted Peak Concurrency MODEL 1",
                                xaxis_title="Date",
                                yaxis_title="Concurrency",
                                width=800,height=500)
@@ -549,7 +550,7 @@ if select_date> "2023-04-09":
 
                             # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="Actual vs Predicted Peak Concurrency",
+                                   title="Actual vs Predicted Peak Concurrency MODEL 2",
                                    xaxis_title="Date",
                                    yaxis_title="Concurrency",
                                    width=800,height=500)
@@ -576,12 +577,42 @@ figure1 =px.line(
 
                             # fig2.update_xaxes(tickangle=290)
 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Watchminutes",
+                               title="Actual vs Predicted Watchminutes MODEL 1",
                                xaxis_title="Date",
                                yaxis_title="Watchminutes",
                                width=800,height=500)
 
 st.write(figure1)
+
+
+if select_date> "2023-04-09":
+    
+    figure1 =px.line(
+                        data_frame =stats_data3,
+                                x = stats_data3['Datetime'],
+                                y=["Actual Watch Minutes","Predicted Watch Minutes(Model 2)"],
+                color_discrete_sequence=["green","blue"],
+            #                     text=mape
+            )
+
+                            # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                            # fig2.update_xaxes(tickangle=290)
+    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                   title="Actual vs Predicted Watchminutes MODEL 2",
+                                   xaxis_title="Date",
+                                   yaxis_title="Watchminutes",
+                                   width=800,height=500)
+
+    st.write(figure1)
+
+
+
 
 figure1 =px.line(
                         data_frame =stats_data2,
@@ -606,7 +637,34 @@ figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,col
                                width=800,height=500)
 
 st.write(figure1)
-        
+
+
+if select_date> "2023-04-09":
+    
+    figure1 =px.line(
+                        data_frame =stats_data3,
+                                x = stats_data3['Datetime'],
+                                y=["MAPE(Actual & Model2)"],
+                color_discrete_sequence=["blue"],
+            #                     text=mape
+            )
+
+                            # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                            # fig2.update_xaxes(tickangle=290)
+    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                   title="Error rate(Actual vs Model2)",
+                                   xaxis_title="Date",
+                                   yaxis_title="MAPE",
+                                   width=800,height=500)
+
+    st.write(figure1)
+
         
 st.header("DATA SOURCE:")
 url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
