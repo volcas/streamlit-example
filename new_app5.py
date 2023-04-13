@@ -90,9 +90,9 @@ stats_data=pd.DataFrame.from_records(rows)
 stats_data.columns=['match_no', 'matchdate', 'matchtime_local', 'team1_name', 'team2_name',
        'match_filename', 'Actual Peak Concurrency',
        'Predicted Peak Concurrency(Model 1)',
-       'Actual Watch Minutes', 'Predicted Watch Minutes(Model 1)',
-     'MAPE(Actual & Model1)']
-
+       'Predicted Peak Concurrency(Model 2)', 'Actual Watch Minutes',
+       'Predicted Watch Minutes(Model 1)', 'Predicted Watch Minutes(Model 2)',
+       'MAPE(Actual & Model1)', 'MAPE(Actual & Model2)']
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
@@ -517,7 +517,7 @@ figure1 =px.line(
 
                             # fig2.update_xaxes(tickangle=290)
 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Peak Conccurency",
+                               title="Actual vs Predicted Peak Concurrency",
                                xaxis_title="Date",
                                yaxis_title="Concurrency",
                                width=800,height=500)
