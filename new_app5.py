@@ -485,7 +485,7 @@ else:
             
             
     else:
-        st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
+        st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
 
 st.header("MODELS Performance at a glance")
 
@@ -617,7 +617,6 @@ if select_date> "2023-04-09":
 
 
 figure1 =px.line(
-                        data_frame =stats_data2,
                                 x = stats_data2['Datetime'],
                                 y=["MAPE(Actual & Model1)"],
                 color_discrete_sequence=["blue"],
