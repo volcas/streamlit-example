@@ -499,6 +499,12 @@ stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data
 
 
 stats_data2=stats_data.dropna(0)
+stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
+
+
+stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
+
+
 
 figure1 =px.line(
                         data_frame =stats_data2,
@@ -523,6 +529,35 @@ figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,col
                                width=800,height=500)
 
 st.write(figure1)
+
+
+if select_date> "2023-04-09":
+    figure1 =px.line(
+                        data_frame =stats_data2,
+                                x = stats_data2['Datetime'],
+                                y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 2)"],
+                color_discrete_sequence=["green","blue"],
+            #                     text=mape
+            )
+
+                            # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                            # fig2.update_xaxes(tickangle=290)
+    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                   title="Actual vs Predicted Peak Concurrency",
+                                   xaxis_title="Date",
+                                   yaxis_title="Concurrency",
+                                   width=800,height=500)
+
+    st.write(figure1)
+
+    
+
 
 figure1 =px.line(
                         data_frame =stats_data2,
