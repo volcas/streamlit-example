@@ -498,9 +498,9 @@ stats_data['matchtime_local']=stats_data['matchtime_local'].astype(str)
 stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data['matchtime_local'], format="%Y-%m-%d %H:%M:%S")
 
 
-stats_data2=stats_data.dropna(0)
+stats_data2=stats_data.dropna()
 stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
-stats_data3=stats_data3.dropna(0)
+stats_data3=stats_data3.dropna()
 
 
 stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
