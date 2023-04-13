@@ -506,6 +506,7 @@ stats_data3=stats_data3[stats_data3['MAPE(Actual & Model2)']!=0]
 
 
 
+mape = round(mean_absolute_percentage_error(stats_data2['Actual Peak Concurrency'],stats_data2['Predicted Peak Concurrency(Model 1)']),2)
 
 figure1 =px.line(
                         data_frame =stats_data2,
@@ -524,7 +525,7 @@ figure1 =px.line(
 
                             # fig2.update_xaxes(tickangle=290)
 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Peak Concurrency MODEL 1",
+                               title="Actual vs Predicted Peak Concurrency MODEL 1 (MAPE:"+str(mape)+")",
                                xaxis_title="Date",
                                yaxis_title="Concurrency",
                                width=800,height=500)
@@ -533,6 +534,7 @@ st.write(figure1)
 
 
 if select_date> "2023-04-09":
+    mape = round(mean_absolute_percentage_error(stats_data3['Actual Peak Concurrency'],stats_data3['Predicted Peak Concurrency(Model 2)']),2)
     figure1 =px.line(
                         data_frame =stats_data3,
                                 x = stats_data3['Datetime'],
@@ -550,7 +552,7 @@ if select_date> "2023-04-09":
 
                             # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="Actual vs Predicted Peak Concurrency MODEL 2",
+                                  title="Actual vs Predicted Peak Concurrency MODEL 2 (MAPE:"+str(mape)+")",
                                    xaxis_title="Date",
                                    yaxis_title="Concurrency",
                                    width=800,height=500)
@@ -559,7 +561,7 @@ if select_date> "2023-04-09":
 
     
 
-
+mape = round(mean_absolute_percentage_error(stats_data2['Actual Watch Minutes'],stats_data2['Predicted Watch Minutes(Model 1)']),2)
 figure1 =px.line(
                         data_frame =stats_data2,
                                 x = stats_data2['Datetime'],
@@ -577,7 +579,7 @@ figure1 =px.line(
 
                             # fig2.update_xaxes(tickangle=290)
 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Watchminutes MODEL 1",
+                               title="Actual vs Predicted Watchminutes MODEL 1 (MAPE:"+str(mape)+")",
                                xaxis_title="Date",
                                yaxis_title="Watchminutes",
                                width=800,height=500)
@@ -586,6 +588,7 @@ st.write(figure1)
 
 
 if select_date> "2023-04-09":
+    mape = round(mean_absolute_percentage_error(stats_data3['Actual Watch Minutes'],stats_data3['Predicted Watch Minutes(Model 2)']),2)
     
     figure1 =px.line(
                         data_frame =stats_data3,
@@ -604,13 +607,12 @@ if select_date> "2023-04-09":
 
                             # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="Actual vs Predicted Watchminutes MODEL 2",
+                                   title="Actual vs Predicted Watchminutes MODEL 2 (MAPE:"+str(mape)+")",
                                    xaxis_title="Date",
                                    yaxis_title="Watchminutes",
                                    width=800,height=500)
 
     st.write(figure1)
-
 
 
 
