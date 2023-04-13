@@ -343,6 +343,8 @@ model2_data['Time']=model2_data['Time'].astype(str)
 
 model2_data['Datetime']=pd.to_datetime(model2_data['Date'] + " " + model2_data['Time'], format="%Y-%m-%d %H:%M:%S")
 
+model2_data=model2_data.drop_duplicates('Datetime')
+
 # st.write(model1_data['Datetime'])
 
 
