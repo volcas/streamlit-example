@@ -499,11 +499,11 @@ stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data
 
 
 stats_data2=stats_data.dropna()
-stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
-stats_data3=stats_data3.dropna()
+stats_data3=stats_data.dropna()
+stats_data3=stats_data3[stats_data3['MAPE(Actual & Model2)']!=0]
 
 
-stats_data3=stats_data[stats_data['MAPE(Actual & Model2)']!=0]
+
 
 
 
