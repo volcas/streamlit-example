@@ -616,7 +616,7 @@ if select_date> "2023-04-09":
 
 
 
-figure1 =px.line(
+figure1 =px.line(data_frame =stats_data2,
                                 x = stats_data2['Datetime'],
                                 y=["MAPE(Actual & Model1)"],
                             color_discrete_sequence=["blue"],
