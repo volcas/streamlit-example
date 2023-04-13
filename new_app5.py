@@ -619,7 +619,7 @@ if select_date> "2023-04-09":
 figure1 =px.line(
                                 x = stats_data2['Datetime'],
                                 y=["MAPE(Actual & Model1)"],
-                color_discrete_sequence=["blue"],
+                            color_discrete_sequence=["blue"],
             #                     text=mape
             )
 
@@ -671,5 +671,4 @@ st.header("DATA SOURCE:")
 url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
 st.write("You can view all the underlying data [HERE](%s)" % url)
 
-#     st.markdown(":blue[Either Predictions for Model 2 or actual data is not available]")
     
