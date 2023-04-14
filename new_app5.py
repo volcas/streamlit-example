@@ -380,6 +380,7 @@ if not appdata2.empty:
 
     cc1=appdata2["Mux"].max()
     st.write("The peak MUX concurrency of the chosen match:",cc1)
+    st.markdown('*Note: The peak MUX concurrency is wrt to the five minute interval, the actual peak may differ*')
 
 #     cc2=appdata["Last9"].max()
 #     st.write("The peak MUX concurrency of the chosen match:",cc2)
