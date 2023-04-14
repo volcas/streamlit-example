@@ -498,8 +498,7 @@ if select_page==page_list[1]:
 else:
     select_date= "2023-04-10"  #DUMMY VALUE
     st.header("MODELS Performance at a glance")
-    st.markdown(":blue[Model 1 Start Date: Mar 31, Model 2 Start Date: Apr 10]")
-    st.markdown(":yellow[Model 3 Coming soon]")
+    st.markdown("Model 1 Start Date-:blue[Mar 31] \t Model 2 Start Date-:blue[Apr 10]")
 
 
 
@@ -681,7 +680,10 @@ else:
                                        width=800,height=500)
 
         st.write(figure1)
+        
+         
 
+st.markdown(":blue[Model 3 Coming soon]")
         
 st.header("DATA SOURCE:")
 url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
