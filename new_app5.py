@@ -498,7 +498,7 @@ if select_page==page_list[1]:
 else:
     select_date= "2023-04-10"  #DUMMY VALUE
     st.header("MODELS Performance at a glance")
-    st.markdown("blue[Model 1 Start Date-]Mar 31] || blue[Model 2 Start Date-]Apr 10")
+    st.markdown(":blue[Model 1 Start Date-]Mar 31] &emsp; :blue[Model 2 Start Date-]Apr 10")
 
 
 
