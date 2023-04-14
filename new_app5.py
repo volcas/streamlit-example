@@ -636,6 +636,7 @@ figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,col
                                title="Error rate(Actual vs Model1)",
                                xaxis_title="Date",
                                yaxis_title="MAPE",
+                               yaxis_range=[0,1],
                                width=800,height=500)
 
 st.write(figure1)
@@ -663,6 +664,7 @@ if select_date> "2023-04-09":
                                    title="Error rate(Actual vs Model2)",
                                    xaxis_title="Date",
                                    yaxis_title="MAPE",
+                                   yaxis_range=[0,1],
                                    width=800,height=500)
 
     st.write(figure1)
