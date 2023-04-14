@@ -502,7 +502,6 @@ else:
     st.markdown(":blue[Model 2 Start Date: Apr 10]")
 
 
-    st.write
     stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
     # st.write(model1_data['Date'])
 
