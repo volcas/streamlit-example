@@ -163,106 +163,51 @@ match_schedule={'2023-03-31': ['19:30:00'],
  '2023-05-20': ['19:30:00', '15:30:00'],
  '2023-05-21': ['19:30:00', '15:30:00']}
 
-date_list=list(match_schedule.keys())    
-select_date = st.sidebar.selectbox('Select Date',
-                                date_list)  
-
-time_list=list(match_schedule[select_date])    
-select_time = st.sidebar.selectbox('Select Time',
-                                time_list)   
+page_list=['Model Results at Glance','Model everyday result']
+select_page = st.sidebar.selectbox('Select Page',
+                                page_list)  
 
 
+if select_page==page_list[1]:
 
-# Combining actual with predictions Model 1
+    date_list=list(match_schedule.keys())    
+    select_date = st.sidebar.selectbox('Select Date',
+                                    date_list)  
 
-actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
-# st.write(model1_data['Date'].dtype)
-
-model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%Y-%m-%d')
-# st.write(model1_data['Date'])
-
-model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
-model1_data['Time']=model1_data['Time'].astype(str)
-
-model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['Time'], format="%Y-%m-%d %H:%M:%S")
-
-# st.write(model1_data['Datetime'])
-
-
-# Removing the first match
-# model1_data=model1_data[model1_data['Date']!='31-03-2023']
-
-
-combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
-# st.write(actual_data['Datetime'])
-
-# Removing matches yet to happen
-combined_df.dropna(inplace=True)
-
-
-appdata=combined_df.copy()
-
-timeOfDay='evening'
-if select_time=='15:30:00':
-    timeOfDay='afternoon'
-
-
-appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
-# appdata=appdata[appdata['tg_col']==col]                          
-appdata=appdata.reset_index().drop('index',1)
-
-if not appdata.empty:
-
-    st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
-#     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
-
-    cc1=appdata["Mux"].max()
-    st.write("The peak MUX concurrency of the chosen match:",cc1)
-#     '$This text is italicized $'
-    st.markdown('*Note: The peak MUX concurrency is wrt to the five minute interval, the actual peak may differ*')
-#     cc2=appdata["Last9"].max()
-#     st.write("The peak MUX concurrency of the chosen match:",cc2)
-    
-    cc3=appdata["Universe_total_prediction"].max()
-    st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc3)
-
-    #     st.header("Model result metrics for the TG: Innings 1")
-    #     st.write(resultdata[['col','MAPE']])
+    time_list=list(match_schedule[select_date])    
+    select_time = st.sidebar.selectbox('Select Time',
+                                    time_list)   
 
 
 
-    # for date in np.unique(combined_df['Date']):
-    #     for time in ['afternoon', 'evening']:
-    #         for inning in ['inning1','inning2']:
-    #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-    mape = round(mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction']),2)
+    # Combining actual with predictions Model 1
 
-    figure1 =px.line(
-                data_frame =appdata,
-                        x = appdata['Datetime'],
-                        y=["Mux","Universe_total_prediction"],
-        color_discrete_sequence=['green','blue'],
-    #                     text=mape
-    )
+    actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
+    # st.write(model1_data['Date'].dtype)
 
-                    # fig2.update_traces(textposition=sample_df['textPosition'])
+    model1_data['Date']=pd.to_datetime(model1_data['Date']).dt.strftime('%Y-%m-%d')
+    # st.write(model1_data['Date'])
 
-                    #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+    model1_data['Time']=pd.to_datetime(model1_data['Time']).dt.time
+    model1_data['Time']=model1_data['Time'].astype(str)
 
-                    #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+    model1_data['Datetime']=pd.to_datetime(model1_data['Date'] + " " + model1_data['Time'], format="%Y-%m-%d %H:%M:%S")
+
+    # st.write(model1_data['Datetime'])
 
 
-                    # fig2.update_xaxes(tickangle=290)
-    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="MAPE:"+str(mape),
-                                   xaxis_title="Time of day",
-                                   yaxis_title="Concurrency",
-                                   width=800,height=500)
+    # Removing the first match
+    # model1_data=model1_data[model1_data['Date']!='31-03-2023']
 
-    st.write(figure1)
 
-else:
-    appdata=model1_data.copy()
+    combined_df=model1_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
+    # st.write(actual_data['Datetime'])
+
+    # Removing matches yet to happen
+    combined_df.dropna(inplace=True)
+
+
+    appdata=combined_df.copy()
 
     timeOfDay='evening'
     if select_time=='15:30:00':
@@ -272,343 +217,378 @@ else:
     appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]                          
     appdata=appdata.reset_index().drop('index',1)
-    
+
     if not appdata.empty:
 
-            st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
-#             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+        st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+    #     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
 
-#             cc1=appdata["Mux"].max()
-#             st.write("The peak MUX concurrency of the chosen match:",cc1)
-#             st.write("No actual available data for the chosen match")
-            st.markdown(":blue[No actual available data for the chosen match]")
+        cc1=appdata["Mux"].max()
+        st.write("The peak MUX concurrency of the chosen match:",cc1)
+    #     '$This text is italicized $'
+        st.markdown('*Note: The peak MUX concurrency is wrt to the five minute interval, the actual peak may differ*')
+    #     cc2=appdata["Last9"].max()
+    #     st.write("The peak MUX concurrency of the chosen match:",cc2)
 
+        cc3=appdata["Universe_total_prediction"].max()
+        st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc3)
 
-            cc2=appdata["Universe_total_prediction"].max()
-            st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc2)
-
-            #     st.header("Model result metrics for the TG: Innings 1")
-            #     st.write(resultdata[['col','MAPE']])
-
-
-
-            # for date in np.unique(combined_df['Date']):
-            #     for time in ['afternoon', 'evening']:
-            #         for inning in ['inning1','inning2']:
-            #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-#             mape = mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction'])
-
-            figure1 =px.line(
-                        data_frame =appdata,
-                                x = appdata['Datetime'],
-                                y=["Universe_total_prediction"],
-                color_discrete_sequence=["blue"],
-            #                     text=mape
-            )
-
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+        #     st.header("Model result metrics for the TG: Innings 1")
+        #     st.write(resultdata[['col','MAPE']])
 
 
-                            # fig2.update_xaxes(tickangle=290)
-            figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title="BARC Model Prediction",
-                                           xaxis_title="Time of day",
-                                           yaxis_title="Concurrency",
-                                           width=800,height=500)
 
-            st.write(figure1)
-            
-            
+        # for date in np.unique(combined_df['Date']):
+        #     for time in ['afternoon', 'evening']:
+        #         for inning in ['inning1','inning2']:
+        #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+        mape = round(mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction']),2)
+
+        figure1 =px.line(
+                    data_frame =appdata,
+                            x = appdata['Datetime'],
+                            y=["Mux","Universe_total_prediction"],
+            color_discrete_sequence=['green','blue'],
+        #                     text=mape
+        )
+
+                        # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                        #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                        #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                        # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                       title="MAPE:"+str(mape),
+                                       xaxis_title="Time of day",
+                                       yaxis_title="Concurrency",
+                                       width=800,height=500)
+
+        st.write(figure1)
+
     else:
-        st.markdown(":blue[Neither Predictions nor actual data is available]")
-        
+        appdata=model1_data.copy()
 
-st.header("MODEL 2")        
-# FOR MODEL 2        
-
-# Combining actual with predictions Model 2
-
-# actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
-# st.write(model1_data['Date'].dtype)
-
-model2_data['Date']=pd.to_datetime(model2_data['Date']).dt.strftime('%Y-%m-%d')
-# st.write(model1_data['Date'])
-
-model2_data['Time']=pd.to_datetime(model2_data['Time']).dt.time
-model2_data['Time']=model2_data['Time'].astype(str)
-
-model2_data['Datetime']=pd.to_datetime(model2_data['Date'] + " " + model2_data['Time'], format="%Y-%m-%d %H:%M:%S")
-
-model2_data=model2_data.drop_duplicates('Datetime')
-
-# st.write(model1_data['Datetime'])
+        timeOfDay='evening'
+        if select_time=='15:30:00':
+            timeOfDay='afternoon'
 
 
-# Removing the first match
-# model1_data=model1_data[model1_data['Date']!='31-03-2023']
+        appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
+        # appdata=appdata[appdata['tg_col']==col]                          
+        appdata=appdata.reset_index().drop('index',1)
+
+        if not appdata.empty:
+
+                st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+    #             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+
+    #             cc1=appdata["Mux"].max()
+    #             st.write("The peak MUX concurrency of the chosen match:",cc1)
+    #             st.write("No actual available data for the chosen match")
+                st.markdown(":blue[No actual available data for the chosen match]")
 
 
-combined_df2=model2_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
-# st.write(actual_data[actual_data['Datetime']==''])
+                cc2=appdata["Universe_total_prediction"].max()
+                st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc2)
 
-# Removing matches yet to happen
-combined_df2.dropna(inplace=True)
-
-
-appdata2=combined_df2.copy()
-
-timeOfDay='evening'
-if select_time=='15:30:00':
-    timeOfDay='afternoon'
-
-# st.write(appdata2)
-# st.write(select_date)
-# st.write(timeOfDay)
-
-appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
-# appdata=appdata[appdata['tg_col']==col]                          
-appdata2=appdata2.reset_index().drop('index',1)
-# st.write(appdata2)
-if not appdata2.empty:
-
-    st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
-#     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
-
-    cc1=appdata2["Mux"].max()
-    st.write("The peak MUX concurrency of the chosen match:",cc1)
-    st.markdown('*Note: The peak MUX concurrency is wrt to the five minute interval, the actual peak may differ*')
-
-#     cc2=appdata["Last9"].max()
-#     st.write("The peak MUX concurrency of the chosen match:",cc2)
-    
-    cc3=appdata2["Universe_total_prediction"].max()
-    st.write("The peak prediction(BARC + IPL Model) concurrency of the chosen match:",cc3)
-
-    #     st.header("Model result metrics for the TG: Innings 1")
-    #     st.write(resultdata[['col','MAPE']])
+                #     st.header("Model result metrics for the TG: Innings 1")
+                #     st.write(resultdata[['col','MAPE']])
 
 
 
-    # for date in np.unique(combined_df['Date']):
-    #     for time in ['afternoon', 'evening']:
-    #         for inning in ['inning1','inning2']:
-    #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-    mape = round(mean_absolute_percentage_error(appdata2['Mux'], appdata2['Universe_total_prediction']),2)
+                # for date in np.unique(combined_df['Date']):
+                #     for time in ['afternoon', 'evening']:
+                #         for inning in ['inning1','inning2']:
+                #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+    #             mape = mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction'])
 
-    figure1 =px.line(
-                data_frame =appdata2,
-                        x = appdata2['Datetime'],
-                        y=["Mux","Universe_total_prediction"],
-        color_discrete_sequence=['green','blue'],
-    #                     text=mape
-    )
+                figure1 =px.line(
+                            data_frame =appdata,
+                                    x = appdata['Datetime'],
+                                    y=["Universe_total_prediction"],
+                    color_discrete_sequence=["blue"],
+                #                     text=mape
+                )
 
-                    # fig2.update_traces(textposition=sample_df['textPosition'])
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                    #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                    #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                    # fig2.update_xaxes(tickangle=290)
-    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="MAPE:"+str(mape),
-                                   xaxis_title="Time of day",
-                                   yaxis_title="Concurrency",
-                                   width=800,height=500)
+                                # fig2.update_xaxes(tickangle=290)
+                figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                               title="BARC Model Prediction",
+                                               xaxis_title="Time of day",
+                                               yaxis_title="Concurrency",
+                                               width=800,height=500)
 
-    st.write(figure1)
+                st.write(figure1)
 
-else:
-    appdata2=model2_data.copy()
+
+        else:
+            st.markdown(":blue[Neither Predictions nor actual data is available]")
+
+
+    st.header("MODEL 2")        
+    # FOR MODEL 2        
+
+    # Combining actual with predictions Model 2
+
+    # actual_data['Datetime']=pd.to_datetime(actual_data['Time'])
+    # st.write(model1_data['Date'].dtype)
+
+    model2_data['Date']=pd.to_datetime(model2_data['Date']).dt.strftime('%Y-%m-%d')
+    # st.write(model1_data['Date'])
+
+    model2_data['Time']=pd.to_datetime(model2_data['Time']).dt.time
+    model2_data['Time']=model2_data['Time'].astype(str)
+
+    model2_data['Datetime']=pd.to_datetime(model2_data['Date'] + " " + model2_data['Time'], format="%Y-%m-%d %H:%M:%S")
+
+    model2_data=model2_data.drop_duplicates('Datetime')
+
+    # st.write(model1_data['Datetime'])
+
+
+    # Removing the first match
+    # model1_data=model1_data[model1_data['Date']!='31-03-2023']
+
+
+    combined_df2=model2_data.merge(actual_data,on='Datetime',how='left',suffixes=('', '_y'))
+    # st.write(actual_data[actual_data['Datetime']==''])
+
+    # Removing matches yet to happen
+    combined_df2.dropna(inplace=True)
+
+
+    appdata2=combined_df2.copy()
 
     timeOfDay='evening'
     if select_time=='15:30:00':
         timeOfDay='afternoon'
 
+    # st.write(appdata2)
+    # st.write(select_date)
+    # st.write(timeOfDay)
 
     appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]                          
     appdata2=appdata2.reset_index().drop('index',1)
-    
+    # st.write(appdata2)
     if not appdata2.empty:
 
-            st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
-#             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+        st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
+    #     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
 
-#             cc1=appdata["Mux"].max()
-#             st.write("The peak MUX concurrency of the chosen match:",cc1)
-#             st.write("No actual available data for the chosen match")
-            st.markdown(":blue[No actual available data for the chosen match]")
+        cc1=appdata2["Mux"].max()
+        st.write("The peak MUX concurrency of the chosen match:",cc1)
+        st.markdown('*Note: The peak MUX concurrency is wrt to the five minute interval, the actual peak may differ*')
 
+    #     cc2=appdata["Last9"].max()
+    #     st.write("The peak MUX concurrency of the chosen match:",cc2)
 
-            cc2=appdata2["Universe_total_prediction"].max()
-            st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc2)
+        cc3=appdata2["Universe_total_prediction"].max()
+        st.write("The peak prediction(BARC + IPL Model) concurrency of the chosen match:",cc3)
 
-            #     st.header("Model result metrics for the TG: Innings 1")
-            #     st.write(resultdata[['col','MAPE']])
-
-
-
-            # for date in np.unique(combined_df['Date']):
-            #     for time in ['afternoon', 'evening']:
-            #         for inning in ['inning1','inning2']:
-            #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
-#             mape = mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction'])
-
-            figure1 =px.line(
-                        data_frame =appdata2,
-                                x = appdata2['Datetime'],
-                                y=["Universe_total_prediction"],
-                color_discrete_sequence=["blue"],
-            #                     text=mape
-            )
-
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+        #     st.header("Model result metrics for the TG: Innings 1")
+        #     st.write(resultdata[['col','MAPE']])
 
 
-                            # fig2.update_xaxes(tickangle=290)
-            figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title="BARC Model Prediction",
-                                           xaxis_title="Time of day",
-                                           yaxis_title="Concurrency",
-                                           width=800,height=500)
 
-            st.write(figure1)
-            
-            
+        # for date in np.unique(combined_df['Date']):
+        #     for time in ['afternoon', 'evening']:
+        #         for inning in ['inning1','inning2']:
+        #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+        mape = round(mean_absolute_percentage_error(appdata2['Mux'], appdata2['Universe_total_prediction']),2)
+
+        figure1 =px.line(
+                    data_frame =appdata2,
+                            x = appdata2['Datetime'],
+                            y=["Mux","Universe_total_prediction"],
+            color_discrete_sequence=['green','blue'],
+        #                     text=mape
+        )
+
+                        # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                        #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                        #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                        # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                       title="MAPE:"+str(mape),
+                                       xaxis_title="Time of day",
+                                       yaxis_title="Concurrency",
+                                       width=800,height=500)
+
+        st.write(figure1)
+
     else:
-        st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
+        appdata2=model2_data.copy()
 
-st.header("MODELS Performance at a glance")
-
-stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
-# st.write(model1_data['Date'])
-
-stats_data['matchtime_local']=pd.to_datetime(stats_data['matchtime_local']).dt.time
-stats_data['matchtime_local']=stats_data['matchtime_local'].astype(str)
-
-stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data['matchtime_local'], format="%Y-%m-%d %H:%M:%S")
+        timeOfDay='evening'
+        if select_time=='15:30:00':
+            timeOfDay='afternoon'
 
 
-stats_data2=stats_data.dropna()
-stats_data3=stats_data.dropna()
-stats_data3=stats_data3[stats_data3['MAPE(Actual & Model2)']!=0]
+        appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
+        # appdata=appdata[appdata['tg_col']==col]                          
+        appdata2=appdata2.reset_index().drop('index',1)
+
+        if not appdata2.empty:
+
+                st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
+    #             st.markdown(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
+
+    #             cc1=appdata["Mux"].max()
+    #             st.write("The peak MUX concurrency of the chosen match:",cc1)
+    #             st.write("No actual available data for the chosen match")
+                st.markdown(":blue[No actual available data for the chosen match]")
+
+
+                cc2=appdata2["Universe_total_prediction"].max()
+                st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc2)
+
+                #     st.header("Model result metrics for the TG: Innings 1")
+                #     st.write(resultdata[['col','MAPE']])
+
+
+
+                # for date in np.unique(combined_df['Date']):
+                #     for time in ['afternoon', 'evening']:
+                #         for inning in ['inning1','inning2']:
+                #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
+    #             mape = mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction'])
+
+                figure1 =px.line(
+                            data_frame =appdata2,
+                                    x = appdata2['Datetime'],
+                                    y=["Universe_total_prediction"],
+                    color_discrete_sequence=["blue"],
+                #                     text=mape
+                )
+
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                                # fig2.update_xaxes(tickangle=290)
+                figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                               title="BARC Model Prediction",
+                                               xaxis_title="Time of day",
+                                               yaxis_title="Concurrency",
+                                               width=800,height=500)
+
+                st.write(figure1)
+
+
+        else:
+            st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
+
+else:
+    st.header("MODELS Performance at a glance")
+
+    stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
+    # st.write(model1_data['Date'])
+
+    stats_data['matchtime_local']=pd.to_datetime(stats_data['matchtime_local']).dt.time
+    stats_data['matchtime_local']=stats_data['matchtime_local'].astype(str)
+
+    stats_data['Datetime']=pd.to_datetime(stats_data['matchdate'] + " " + stats_data['matchtime_local'], format="%Y-%m-%d %H:%M:%S")
+
+
+    stats_data2=stats_data.dropna()
+    stats_data3=stats_data.dropna()
+    stats_data3=stats_data3[stats_data3['MAPE(Actual & Model2)']!=0]
 
 
 
 
 
-mape = round(mean_absolute_percentage_error(stats_data2['Actual Peak Concurrency'],stats_data2['Predicted Peak Concurrency(Model 1)']),2)
+    mape = round(mean_absolute_percentage_error(stats_data2['Actual Peak Concurrency'],stats_data2['Predicted Peak Concurrency(Model 1)']),2)
 
-figure1 =px.line(
-                        data_frame =stats_data2,
-                                x = stats_data2['Datetime'],
-                                y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 1)"],
-                color_discrete_sequence=["green","blue"],
-            #                     text=mape
-            )
-
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                            # fig2.update_xaxes(tickangle=290)
-figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Peak Concurrency MODEL 1 (MAPE:"+str(mape)+")",
-                               xaxis_title="Date",
-                               yaxis_title="Concurrency",
-                               width=800,height=500)
-
-st.write(figure1)
-
-
-if select_date> "2023-04-09":
-    mape = round(mean_absolute_percentage_error(stats_data3['Actual Peak Concurrency'],stats_data3['Predicted Peak Concurrency(Model 2)']),2)
     figure1 =px.line(
-                        data_frame =stats_data3,
-                                x = stats_data3['Datetime'],
-                                y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 2)"],
-                color_discrete_sequence=["green","blue"],
-            #                     text=mape
-            )
+                            data_frame =stats_data2,
+                                    x = stats_data2['Datetime'],
+                                    y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 1)"],
+                    color_discrete_sequence=["green","blue"],
+                #                     text=mape
+                )
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                            # fig2.update_xaxes(tickangle=290)
+                                # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                  title="Actual vs Predicted Peak Concurrency MODEL 2 (MAPE:"+str(mape)+")",
+                                   title="Actual vs Predicted Peak Concurrency MODEL 1 (MAPE:"+str(mape)+")",
                                    xaxis_title="Date",
                                    yaxis_title="Concurrency",
                                    width=800,height=500)
 
     st.write(figure1)
 
-    
 
-mape = round(mean_absolute_percentage_error(stats_data2['Actual Watch Minutes'],stats_data2['Predicted Watch Minutes(Model 1)']),2)
-figure1 =px.line(
-                        data_frame =stats_data2,
-                                x = stats_data2['Datetime'],
-                                y=["Actual Watch Minutes","Predicted Watch Minutes(Model 1)"],
-                color_discrete_sequence=["green","blue"],
-            #                     text=mape
-            )
+    if select_date> "2023-04-09":
+        mape = round(mean_absolute_percentage_error(stats_data3['Actual Peak Concurrency'],stats_data3['Predicted Peak Concurrency(Model 2)']),2)
+        figure1 =px.line(
+                            data_frame =stats_data3,
+                                    x = stats_data3['Datetime'],
+                                    y=["Actual Peak Concurrency","Predicted Peak Concurrency(Model 2)"],
+                    color_discrete_sequence=["green","blue"],
+                #                     text=mape
+                )
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                            # fig2.update_xaxes(tickangle=290)
-figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Actual vs Predicted Watchminutes MODEL 1 (MAPE:"+str(mape)+")",
-                               xaxis_title="Date",
-                               yaxis_title="Watchminutes",
-                               width=800,height=500)
-
-st.write(figure1)
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-if select_date> "2023-04-09":
-    mape = round(mean_absolute_percentage_error(stats_data3['Actual Watch Minutes'],stats_data3['Predicted Watch Minutes(Model 2)']),2)
-    
+                                # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                      title="Actual vs Predicted Peak Concurrency MODEL 2 (MAPE:"+str(mape)+")",
+                                       xaxis_title="Date",
+                                       yaxis_title="Concurrency",
+                                       width=800,height=500)
+
+        st.write(figure1)
+
+
+
+    mape = round(mean_absolute_percentage_error(stats_data2['Actual Watch Minutes'],stats_data2['Predicted Watch Minutes(Model 1)']),2)
     figure1 =px.line(
-                        data_frame =stats_data3,
-                                x = stats_data3['Datetime'],
-                                y=["Actual Watch Minutes","Predicted Watch Minutes(Model 2)"],
-                color_discrete_sequence=["green","blue"],
-            #                     text=mape
-            )
+                            data_frame =stats_data2,
+                                    x = stats_data2['Datetime'],
+                                    y=["Actual Watch Minutes","Predicted Watch Minutes(Model 1)"],
+                    color_discrete_sequence=["green","blue"],
+                #                     text=mape
+                )
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-                            # fig2.update_xaxes(tickangle=290)
+                                # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="Actual vs Predicted Watchminutes MODEL 2 (MAPE:"+str(mape)+")",
+                                   title="Actual vs Predicted Watchminutes MODEL 1 (MAPE:"+str(mape)+")",
                                    xaxis_title="Date",
                                    yaxis_title="Watchminutes",
                                    width=800,height=500)
@@ -616,58 +596,86 @@ if select_date> "2023-04-09":
     st.write(figure1)
 
 
+    if select_date> "2023-04-09":
+        mape = round(mean_absolute_percentage_error(stats_data3['Actual Watch Minutes'],stats_data3['Predicted Watch Minutes(Model 2)']),2)
 
-figure1 =px.line(data_frame =stats_data2,
-                                x = stats_data2['Datetime'],
-                                y=["MAPE(Actual & Model1)"],
-                            color_discrete_sequence=["blue"],
-            #                     text=mape
-            )
+        figure1 =px.line(
+                            data_frame =stats_data3,
+                                    x = stats_data3['Datetime'],
+                                    y=["Actual Watch Minutes","Predicted Watch Minutes(Model 2)"],
+                    color_discrete_sequence=["green","blue"],
+                #                     text=mape
+                )
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
 
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
 
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                            # fig2.update_xaxes(tickangle=290)
-figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                               title="Error rate(Actual vs Model1)",
-                               xaxis_title="Date",
-                               yaxis_title="MAPE",
-                               yaxis_range=[0,1],
-                               width=800,height=500)
-
-st.write(figure1)
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
 
 
-if select_date> "2023-04-09":
-    
-    figure1 =px.line(
-                        data_frame =stats_data3,
-                                x = stats_data3['Datetime'],
-                                y=["MAPE(Actual & Model2)"],
-                color_discrete_sequence=["blue"],
-            #                     text=mape
-            )
+                                # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                       title="Actual vs Predicted Watchminutes MODEL 2 (MAPE:"+str(mape)+")",
+                                       xaxis_title="Date",
+                                       yaxis_title="Watchminutes",
+                                       width=800,height=500)
 
-                            # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                            #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                            #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+        st.write(figure1)
 
 
-                            # fig2.update_xaxes(tickangle=290)
+
+    figure1 =px.line(data_frame =stats_data2,
+                                    x = stats_data2['Datetime'],
+                                    y=["MAPE(Actual & Model1)"],
+                                color_discrete_sequence=["blue"],
+                #                     text=mape
+                )
+
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                                # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                   title="Error rate(Actual vs Model2)",
+                                   title="Error rate(Actual vs Model1)",
                                    xaxis_title="Date",
                                    yaxis_title="MAPE",
                                    yaxis_range=[0,1],
                                    width=800,height=500)
 
     st.write(figure1)
+
+
+    if select_date> "2023-04-09":
+
+        figure1 =px.line(
+                            data_frame =stats_data3,
+                                    x = stats_data3['Datetime'],
+                                    y=["MAPE(Actual & Model2)"],
+                    color_discrete_sequence=["blue"],
+                #                     text=mape
+                )
+
+                                # fig2.update_traces(textposition=sample_df['textPosition'])
+
+                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
+
+                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
+
+
+                                # fig2.update_xaxes(tickangle=290)
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                       title="Error rate(Actual vs Model2)",
+                                       xaxis_title="Date",
+                                       yaxis_title="MAPE",
+                                       yaxis_range=[0,1],
+                                       width=800,height=500)
+
+        st.write(figure1)
 
         
 st.header("DATA SOURCE:")
