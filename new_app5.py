@@ -498,7 +498,11 @@ if select_page==page_list[1]:
 else:
     select_date= "2023-04-10"  #DUMMY VALUE
     st.header("MODELS Performance at a glance")
+    st.markdown(":blue[Model 1 Start Date: Mar 31]")
+    st.markdown(":blue[Model 2 Start Date: Apr 10]")
 
+
+    st.write
     stats_data['matchdate']=pd.to_datetime(stats_data['matchdate']).dt.strftime('%Y-%m-%d')
     # st.write(model1_data['Date'])
 
