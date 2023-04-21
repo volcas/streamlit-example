@@ -40,19 +40,11 @@ conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
-@st.cache_resource(ttl=3600)
+@st.cache_resource(ttl=600)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
-
-
-@st.cache_resource(ttl=300)
-def run_query_min(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
 
 # BARC MODEL(Model 1) Prediction
 sheet_url = st.secrets["private_gsheets_url_1"]
@@ -101,19 +93,6 @@ stats_data.columns=['match_no', 'matchdate', 'matchtime_local', 'team1_name', 't
        'Predicted Peak Concurrency(Model 2)', 'Actual Watch Minutes',
        'Predicted Watch Minutes(Model 1)', 'Predicted Watch Minutes(Model 2)',
        'MAPE(Actual & Model1)', 'MAPE(Actual & Model2)']
-
-
-
-# Minute MODEL Prediction sheet
-sheet_url = st.secrets["private_gsheets_url_5"]
-rows = run_query_min(f'SELECT * FROM "{sheet_url}"')
-model3_data=pd.DataFrame.from_records(rows)
-
-model3_data.columns=['Balls', 'Actual', '5min', '10min']
-
-
-
-
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
@@ -184,7 +163,7 @@ match_schedule={'2023-03-31': ['19:30:00'],
  '2023-05-20': ['19:30:00', '15:30:00'],
  '2023-05-21': ['19:30:00', '15:30:00']}
 
-page_list=['Model Performance at Glance','Date wise model prediction','Minute Model']
+page_list=['Model Performance at Glance','Date wise model prediction']
 select_page = st.sidebar.selectbox('Select Page',
                                 page_list)  
 
@@ -516,7 +495,7 @@ if select_page==page_list[1]:
         else:
             st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
 
-elif select_page==page_list[0]:
+else:
     select_date= "2023-04-10"  #DUMMY VALUE
     st.header("MODELS Performance at a glance")
     st.markdown(":blue[Model 1 Start Date-]Mar 31 &emsp; :blue[Model 2 Start Date-]Apr 10")
@@ -705,38 +684,9 @@ elif select_page==page_list[0]:
          
 
 st.markdown(":green[Model 3 Coming soon]")
-
-
+        
 st.header("DATA SOURCE:")
 url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
 st.write("You can view all the underlying data [HERE](%s)" % url)
 
-else:
-#     model3_data.columns=['Balls', 'Actual', '5min', '10min']
-
-    figure1 =px.line(
-                            data_frame =model3_data,
-                                    x = model3_data['Balls'],
-                                    y=["Actual","5min","10min"],
-                    color_discrete_sequence=["blue","red","green"],
-                #                     text=mape
-                )
-
-                                # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                                # fig2.update_xaxes(tickangle=290)
-        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="Prediction(Actual vs Model3)",
-                                       xaxis_title="Date",
-                                       yaxis_title="MAPE",
-                                       yaxis_range=[1,120],
-                                       width=800,height=500)
-
-        st.write(figure1)
-    
     
