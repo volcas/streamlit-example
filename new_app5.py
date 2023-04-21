@@ -717,6 +717,7 @@ elif select_page==page_list[0]:
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
+    model3_data=model3_data[model3_data['Balls']<83]
     model3_mape5=model3_data[['Actual','5min']].dropna()
     model3_mape5=model3_mape5[model3_mape5['5min']!=0]
 #     st.write("MAPE with 5 min model:"+ str(mape5))
