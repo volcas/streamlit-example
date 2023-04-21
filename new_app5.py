@@ -719,23 +719,23 @@ else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
     model3_mape5=model3_data[['Actual','5min']].dropna()
     model3_mape5=model3_mape5[model3_mape5['5min']!=0]
-    mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
+#     mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
 #     st.write("MAPE with 5 min model:"+ str(mape5))
     
     model3_mape10=model3_data[['Actual','10min']].dropna()
     model3_mape10=model3_mape10[model3_mape10['10min']!=0]
 
-    mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
+#     mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
     
     model3_mape15=model3_data[['Actual','15min']].dropna()
     model3_mape15=model3_mape15[model3_mape15['15min']!=0]
 
-    mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
+#     mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
     
 #     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
 #     st.write("MAPE with 10 min model:"+ str(mape10))
     
-    st.markdown(":green[5 min model MAPE-]"+ str(mape5)+ "&emsp; :blue[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
+#     st.markdown(":green[5 min model MAPE-]"+ str(mape5)+ "&emsp; :blue[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
 
     
     figure1 =px.line(
