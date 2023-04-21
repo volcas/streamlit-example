@@ -111,10 +111,6 @@ model3_data=pd.DataFrame.from_records(rows)
 
 model3_data.columns=['Balls', 'Actual', '5min', '10min']
 
-
-
-
-
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
 #        'MP/Chhattisgarh', 'Mah / Goa', 'Odisha', 'Pun/Cha', 'Rajasthan',
@@ -704,12 +700,6 @@ elif select_page==page_list[0]:
         
          
 
-st.markdown(":green[Model 3 Coming soon]")
-
-
-st.header("DATA SOURCE:")
-url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
-st.write("You can view all the underlying data [HERE](%s)" % url)
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min']
@@ -740,3 +730,9 @@ else:
         st.write(figure1)
     
     
+st.markdown(":green[Model 3 Coming soon]")
+
+
+st.header("DATA SOURCE:")
+url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
+st.write("You can view all the underlying data [HERE](%s)" % url)
