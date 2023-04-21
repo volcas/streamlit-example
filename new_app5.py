@@ -720,14 +720,14 @@ else:
 
 
                                 # fig2.update_xaxes(tickangle=290)
-        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
                                        title="Prediction(Actual vs Model3)",
                                        xaxis_title="Date",
                                        yaxis_title="MAPE",
                                        yaxis_range=[1,120],
                                        width=800,height=500)
 
-        st.write(figure1)
+    st.write(figure1)
     
     
 st.markdown(":green[Model 3 Coming soon]")
