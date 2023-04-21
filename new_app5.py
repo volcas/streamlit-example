@@ -703,6 +703,13 @@ elif select_page==page_list[0]:
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min']
+    model3_mape=model3_data.dropna()
+    
+    mape5 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['5min']),2)
+    st.write("MAPE with 5 min model:"+ str(mape5))
+    
+    mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
+    st.write("MAPE with 10 min model:"+ str(mape10))
     
     figure1 =px.line(
                             data_frame =model3_data,
