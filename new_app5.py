@@ -727,7 +727,7 @@ else:
     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
 #     st.write("MAPE with 10 min model:"+ str(mape10))
     
-    st.markdown(":blue[5 min model MAPE-]",mape5, "&emsp; :blue[10 min model MAPE-]",mape10)
+    st.markdown(":blue[5 min model MAPE-]"+ str(mape5)+ "&emsp; :blue[10 min model MAPE-]"+str(mape10))
 
     
     figure1 =px.line(
