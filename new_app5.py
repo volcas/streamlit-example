@@ -109,7 +109,7 @@ sheet_url = st.secrets["private_gsheets_url_5"]
 rows = run_query_min(f'SELECT * FROM "{sheet_url}"')
 model3_data=pd.DataFrame.from_records(rows)
 
-model3_data.columns=['Balls', 'Actual', '5min', '10min']
+model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
@@ -733,8 +733,8 @@ else:
     figure1 =px.line(
                             data_frame =model3_data,
                                     x = model3_data['Balls'],
-                                    y=["Actual","5min","10min"],
-                    color_discrete_sequence=["blue","red","green"],
+                                    y=["Actual","5min","10min","15min"],
+                    color_discrete_sequence=["blue","red","green","yellow"],
                 #                     text=mape
                 )
 
