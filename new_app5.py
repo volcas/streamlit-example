@@ -707,7 +707,7 @@ else:
     figure1 =px.line(
                             data_frame =model3_data,
                                     x = model3_data['Balls'],
-                                    y=["Actual"],
+                                    y=["Actual","5min","10min"],
                     color_discrete_sequence=["blue","red","green"],
                 #                     text=mape
                 )
