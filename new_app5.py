@@ -703,7 +703,7 @@ elif select_page==page_list[0]:
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min']
-
+    st.write(model3)
     figure1 =px.line(
                             data_frame =model3_data,
                                     x = model3_data['Balls'],
