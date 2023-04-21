@@ -703,32 +703,24 @@ elif select_page==page_list[0]:
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min']
-    st.write(model3_data)
+    
     figure1 =px.line(
                             data_frame =model3_data,
                                     x = model3_data['Balls'],
-                                    y=["Actual","5min","10min"],
+                                    y=["Actual"],
                     color_discrete_sequence=["blue","red","green"],
                 #                     text=mape
                 )
 
-                                # fig2.update_traces(textposition=sample_df['textPosition'])
-
-                                #     fig2.add_scatter(x=sample_df['Start Time'], y=sample_df['RR scaled'], name="run rate")
-
-                                #     fig2.add_trace(go.Table(cells={"values":df.T.values}, header={"values":df.columns}), row=1,col=1)
-
-
-                                # fig2.update_xaxes(tickangle=290)
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="Prediction(Actual vs Model3)",
-                                       xaxis_title="Date",
-                                       yaxis_title="MAPE",
-                                       yaxis_range=[1,120],
+                                       title="Prediction(Actual)",
+                                       xaxis_title="Balls",
+                                       yaxis_title="Concurrency",
+                                       xaxis_range=[1,120],
                                        width=800,height=500)
 
     st.write(figure1)
-    
+        
     
 st.markdown(":green[Model 3 Coming soon]")
 
