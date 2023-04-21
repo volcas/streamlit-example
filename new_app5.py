@@ -716,18 +716,18 @@ elif select_page==page_list[0]:
 
 
 else:
-#     model3_data.columns=['Balls', 'Actual', '5min', '10min']
-    model3_mape=model3_data.dropna()
+#     model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
+    model3_mape5=model3_data[['Actual','5min']].dropna()
     
-    mape5 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['5min']),2)
+    mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
 #     st.write("MAPE with 5 min model:"+ str(mape5))
     
     
     
-    mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
+#     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
 #     st.write("MAPE with 10 min model:"+ str(mape10))
     
-    st.markdown(":green[5 min model MAPE-]"+ str(mape5)+ "&emsp; :blue[10 min model MAPE-]"+str(mape10))
+    st.markdown(":green[5 min model MAPE-]"+ str(mape5)+ "&emsp; :blue[10 min model MAPE-]"+str(mape5))
 
     
     figure1 =px.line(
