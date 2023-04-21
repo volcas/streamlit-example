@@ -511,6 +511,14 @@ if select_page==page_list[1]:
 
         else:
             st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
+        
+    st.markdown(":green[Model 3 Coming soon]")
+
+
+    st.header("DATA SOURCE:")
+    url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
+    st.write("You can view all the underlying data [HERE](%s)" % url)
+    
 
 elif select_page==page_list[0]:
     select_date= "2023-04-10"  #DUMMY VALUE
@@ -698,7 +706,13 @@ elif select_page==page_list[0]:
 
         st.write(figure1)
         
-         
+    st.markdown(":green[Model 3 Coming soon]")
+
+
+    st.header("DATA SOURCE:")
+    url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
+    st.write("You can view all the underlying data [HERE](%s)" % url)
+     
 
 
 else:
@@ -706,10 +720,15 @@ else:
     model3_mape=model3_data.dropna()
     
     mape5 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['5min']),2)
-    st.write("MAPE with 5 min model:"+ str(mape5))
+#     st.write("MAPE with 5 min model:"+ str(mape5))
+    
+    
     
     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
-    st.write("MAPE with 10 min model:"+ str(mape10))
+#     st.write("MAPE with 10 min model:"+ str(mape10))
+    
+    st.markdown(":blue[5 min model MAPE-]",mape5, "&emsp; :blue[10 min model MAPE-]",mape10)
+
     
     figure1 =px.line(
                             data_frame =model3_data,
@@ -729,9 +748,3 @@ else:
     st.write(figure1)
         
     
-st.markdown(":green[Model 3 Coming soon]")
-
-
-st.header("DATA SOURCE:")
-url = "https://docs.google.com/spreadsheets/d/1VrIBuVTzp44jmh1ssqfj9F0_3d1xdQTfbAyA6X9jiEA/edit?usp=sharing"
-st.write("You can view all the underlying data [HERE](%s)" % url)
