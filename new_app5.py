@@ -731,10 +731,10 @@ else:
         mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
         mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
         mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
-        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :yellow[15 min model MAPE-]"+str(mape15))
+        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
 
     except:
-        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :yellow[15 min model MAPE-]"+str(mape5))
+        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape5))
 
 #     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
 #     st.write("MAPE with 10 min model:"+ str(mape10))
@@ -745,7 +745,7 @@ else:
                             data_frame =model3_data,
                                     x = model3_data['Balls'],
                                     y=["Actual","5min","10min","15min"],
-                    color_discrete_sequence=["blue","red","green","yellow"],
+                    color_discrete_sequence=["black","red","green","blue"],
                 #                     text=mape
                 )
 
