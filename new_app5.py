@@ -47,7 +47,7 @@ def run_query(query):
     return rows
 
 
-@st.cache_resource(ttl=60000)
+@st.cache_resource(ttl=600)
 def run_query_min(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
