@@ -763,7 +763,7 @@ else:
                 )
 
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="Prediction(Actual) for innings 1",
+                                       title="Prediction for innings 1",
                                        xaxis_title="Balls",
                                        yaxis_title="Concurrency",
                                        xaxis_range=[1,120],
@@ -772,8 +772,7 @@ else:
     st.write(figure1)
     
 
-    model3_inning2=model3_data[model3_data['inning']=='innings']
-    st.write(model3_inning2)
+    model3_inning2=model3_data[model3_data['inning']=='inning2']
     
     if model3_inning2.empty:
         st.markdown(":blue[Second innings hasn't started. Kindly wait]")
@@ -807,7 +806,7 @@ else:
                     )
 
         figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                           title="Prediction(Actual) for innings 2",
+                                           title="Prediction for innings 2",
                                            xaxis_title="Balls",
                                            yaxis_title="Concurrency",
                                            xaxis_range=[1,120],
