@@ -727,50 +727,52 @@ else:
 
     model3_inning1=model3_data[model3_data['inning']=='inning1']
 #     st.write(model3_inning1)
-    
-    model3_mape5=model3_inning1[['Actual','5min']].dropna()
-    model3_mape5=model3_mape5[model3_mape5['5min']!=0]
-#     st.write("MAPE with 5 min model:"+ str(mape5))
-    
-    model3_mape10=model3_inning1[['Actual','10min']].dropna()
-    model3_mape10=model3_mape10[model3_mape10['10min']!=0]
+    if model3_inning2.empty:
+        st.markdown(":blue[Second innings hasn't started. Kindly wait]")
+    else:
+        model3_mape5=model3_inning1[['Actual','5min']].dropna()
+        model3_mape5=model3_mape5[model3_mape5['5min']!=0]
+    #     st.write("MAPE with 5 min model:"+ str(mape5))
 
-    
-    model3_mape15=model3_inning1[['Actual','15min']].dropna()
-    model3_mape15=model3_mape15[model3_mape15['15min']!=0]
-    
-    try:    
-        mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
-        mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
-        mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
-        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
+        model3_mape10=model3_inning1[['Actual','10min']].dropna()
+        model3_mape10=model3_mape10[model3_mape10['10min']!=0]
 
-    except:
-        st.write("Error metrics being calculated. Please wait a couple more balls")
-#         st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape5))
 
-#     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
-#     st.write("MAPE with 10 min model:"+ str(mape10))
-    
+        model3_mape15=model3_inning1[['Actual','15min']].dropna()
+        model3_mape15=model3_mape15[model3_mape15['15min']!=0]
 
-    
-    figure1 =px.line(
-                            data_frame =model3_inning1,
-                                    x = model3_inning1['Balls'],
-                                    y=["Actual","5min","10min","15min"],
-                    color_discrete_sequence=["black","red","green","blue"],
-                #                     text=mape
-                )
+        try:    
+            mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
+            mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
+            mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
+            st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
 
-    figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="Prediction for innings 1",
-                                       xaxis_title="Balls",
-                                       yaxis_title="Concurrency",
-                                       xaxis_range=[1,120],
-                                       width=800,height=500)
+        except:
+            st.write("Error metrics being calculated. Please wait a couple more balls")
+    #         st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape5))
 
-    st.write(figure1)
-    
+    #     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
+    #     st.write("MAPE with 10 min model:"+ str(mape10))
+
+
+
+        figure1 =px.line(
+                                data_frame =model3_inning1,
+                                        x = model3_inning1['Balls'],
+                                        y=["Actual","5min","10min","15min"],
+                        color_discrete_sequence=["black","red","green","blue"],
+                    #                     text=mape
+                    )
+
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                           title="Prediction for innings 1",
+                                           xaxis_title="Balls",
+                                           yaxis_title="Concurrency",
+                                           xaxis_range=[1,120],
+                                           width=800,height=500)
+
+        st.write(figure1)
+
 
     model3_inning2=model3_data[model3_data['inning']=='inning2']
     
