@@ -723,10 +723,10 @@ else:
     
 #     st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
    
-    st.write(model3_data)
+#     st.write(model3_data)
 
-    model3_inning1=model3_data[model3_data['inning']=='innings1']
-    st.write(model3_inning1)
+    model3_inning1=model3_data[model3_data['inning']=='inning1']
+#     st.write(model3_inning1)
     
     model3_mape5=model3_inning1[['Actual','5min']].dropna()
     model3_mape5=model3_mape5[model3_mape5['5min']!=0]
@@ -738,6 +738,7 @@ else:
     
     model3_mape15=model3_inning1[['Actual','15min']].dropna()
     model3_mape15=model3_mape15[model3_mape15['15min']!=0]
+    
     try:    
         mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
         mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
@@ -771,8 +772,9 @@ else:
     st.write(figure1)
     
 
-    model3_inning2=model3_data[model3_data['inning']=='innings2']
+    model3_inning2=model3_data[model3_data['inning']=='innings']
     st.write(model3_inning2)
+    
     if model3_inning2.empty:
         st.markdown(":blue[Second innings hasn't started. Kindly wait]")
         
