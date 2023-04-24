@@ -723,7 +723,8 @@ else:
     
 #     st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
    
-    
+    st.write(model3_data)
+
     model3_inning1=model3_data[model3_data['inning']=='innings1']
     st.write(model3_inning1)
     
@@ -769,7 +770,7 @@ else:
 
     st.write(figure1)
     
-    
+
     model3_inning2=model3_data[model3_data['inning']=='innings2']
     st.write(model3_inning2)
     if model3_inning2.empty:
