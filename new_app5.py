@@ -40,14 +40,14 @@ conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
-@st.cache_resource(ttl=3600)
+@st.cache_resource(ttl=60000)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
     return rows
 
 
-@st.cache_resource(ttl=300)
+@st.cache_resource(ttl=60000)
 def run_query_min(query):
     rows = conn.execute(query, headers=1)
     rows = rows.fetchall()
@@ -109,7 +109,7 @@ sheet_url = st.secrets["private_gsheets_url_5"]
 rows = run_query_min(f'SELECT * FROM "{sheet_url}"')
 model3_data=pd.DataFrame.from_records(rows)
 
-model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
+model3_data.columns=['Balls', 'Actual', '5min', '10min','15min','inning']
 
 # region_list=['AP / Telangana', 'Assam / North East / Sikkim', 'Bihar/Jharkhand',
 #        'Delhi', 'Guj / D&D / DNH', 'Har/HP/J&K', 'Karnataka', 'Kerala',
@@ -717,16 +717,25 @@ elif select_page==page_list[0]:
 
 else:
 #     model3_data.columns=['Balls', 'Actual', '5min', '10min','15min']
-    model3_data=model3_data[model3_data['Balls']<83]
-    model3_mape5=model3_data[['Actual','5min']].dropna()
+#     model3_data=model3_data[model3_data['Balls']<83]
+    
+#     match_info_df=model1_data[]
+    
+#     st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
+   
+    
+    model3_inning1=model3_data[model3_data['inning']=='innings1']
+    
+    
+    model3_mape5=model3_inning1[['Actual','5min']].dropna()
     model3_mape5=model3_mape5[model3_mape5['5min']!=0]
 #     st.write("MAPE with 5 min model:"+ str(mape5))
     
-    model3_mape10=model3_data[['Actual','10min']].dropna()
+    model3_mape10=model3_inning1[['Actual','10min']].dropna()
     model3_mape10=model3_mape10[model3_mape10['10min']!=0]
 
     
-    model3_mape15=model3_data[['Actual','15min']].dropna()
+    model3_mape15=model3_inning1[['Actual','15min']].dropna()
     model3_mape15=model3_mape15[model3_mape15['15min']!=0]
     try:    
         mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
@@ -735,7 +744,8 @@ else:
         st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
 
     except:
-        st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape5))
+        st.write("Error metrics being calculated. Please wait a couple more balls")
+#         st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape5) +"&emsp; :blue[15 min model MAPE-]"+str(mape5))
 
 #     mape10 = round(mean_absolute_percentage_error(model3_mape['Actual'],model3_mape['10min']),2)
 #     st.write("MAPE with 10 min model:"+ str(mape10))
@@ -743,20 +753,63 @@ else:
 
     
     figure1 =px.line(
-                            data_frame =model3_data,
-                                    x = model3_data['Balls'],
+                            data_frame =model3_inning1,
+                                    x = model3_inning1['Balls'],
                                     y=["Actual","5min","10min","15min"],
                     color_discrete_sequence=["black","red","green","blue"],
                 #                     text=mape
                 )
 
     figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                       title="Prediction(Actual)",
+                                       title="Prediction(Actual) for innings 1",
                                        xaxis_title="Balls",
                                        yaxis_title="Concurrency",
                                        xaxis_range=[1,120],
                                        width=800,height=500)
 
     st.write(figure1)
+    
+    
+    model3_inning2=model3_data[model3_data['inning']=='innings2']
+    
+    if model3_inning2.empty:
+        st.markdown(":blue[Second innings hasn't started. Kindly wait]")
         
+    else:
+        model3_mape5=model3_inning2[['Actual','5min']].dropna()
+        model3_mape5=model3_mape5[model3_mape5['5min']!=0]
+    #     st.write("MAPE with 5 min model:"+ str(mape5))
+
+        model3_mape10=model3_inning2[['Actual','10min']].dropna()
+        model3_mape10=model3_mape10[model3_mape10['10min']!=0]
+
+
+        model3_mape15=model3_inning2[['Actual','15min']].dropna()
+        model3_mape15=model3_mape15[model3_mape15['15min']!=0]
+        try:    
+            mape5 = round(mean_absolute_percentage_error(model3_mape5['Actual'],model3_mape5['5min']),2)
+            mape10 = round(mean_absolute_percentage_error(model3_mape10['Actual'],model3_mape10['10min']),2)
+            mape15 = round(mean_absolute_percentage_error(model3_mape15['Actual'],model3_mape15['15min']),2)
+            st.markdown(":red[5 min model MAPE-]"+ str(mape5)+ "&emsp; :green[10 min model MAPE-]"+str(mape10) +"&emsp; :blue[15 min model MAPE-]"+str(mape15))
+
+        except:
+            st.write("Error metrics being calculated. Please wait a couple more balls")    
+    
+        figure1 =px.line(
+                                data_frame =model3_inning2,
+                                        x = model3_inning2['Balls'],
+                                        y=["Actual","5min","10min","15min"],
+                        color_discrete_sequence=["black","red","green","blue"],
+                    #                     text=mape
+                    )
+
+        figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
+                                           title="Prediction(Actual) for innings 2",
+                                           xaxis_title="Balls",
+                                           yaxis_title="Concurrency",
+                                           xaxis_range=[1,120],
+                                           width=800,height=500)
+
+        st.write(figure1)
+
     
