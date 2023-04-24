@@ -728,7 +728,7 @@ else:
     model3_inning1=model3_data[model3_data['inning']=='inning1']
 #     st.write(model3_inning1)
     if model3_inning1.empty:
-        st.markdown(":blue[Second innings hasn't started. Kindly wait]")
+        st.markdown(":green[First innings hasn't started. Kindly wait]")
     else:
         model3_mape5=model3_inning1[['Actual','5min']].dropna()
         model3_mape5=model3_mape5[model3_mape5['5min']!=0]
