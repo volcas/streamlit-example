@@ -771,7 +771,7 @@ else:
     
     
     model3_inning2=model3_data[model3_data['inning']=='innings2']
-    
+    st.write(model3_inning2)
     if model3_inning2.empty:
         st.markdown(":blue[Second innings hasn't started. Kindly wait]")
         
