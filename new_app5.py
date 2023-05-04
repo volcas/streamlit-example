@@ -397,7 +397,7 @@ if select_page==page_list[1]:
 
     appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]                          
-    appdata2=appdata2.reset_index().drop('index',1)
+    appdata2=appdata2.reset_index().drop(['index'],axis=1)
     # st.write(appdata2)
     if not appdata2.empty:
 
@@ -459,7 +459,7 @@ if select_page==page_list[1]:
 
         appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
         # appdata=appdata[appdata['tg_col']==col]                          
-        appdata2=appdata2.reset_index().drop('index',1)
+        appdata2=appdata2.reset_index().drop(['index'],axis=1)
 
         if not appdata2.empty:
 
