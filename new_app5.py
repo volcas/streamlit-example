@@ -485,7 +485,7 @@ if select_page==page_list[1]:
 
 
                 cc2=appdata2["Universe_total_prediction"].max()
-                st.write("The peak prediction(BARC Model) concurrency of the chosen match:",cc2)
+                st.write("The peak prediction(BARC + IPL Model) concurrency of the chosen match:",cc2)
 
                 #     st.header("Model result metrics for the TG: Innings 1")
                 #     st.write(resultdata[['col','MAPE']])
