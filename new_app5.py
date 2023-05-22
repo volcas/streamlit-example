@@ -234,15 +234,15 @@ if select_page==page_list[1]:
     if select_time=='15:30:00':
         timeOfDay='afternoon'
 
-    st.write(appdata)
+#     st.write(appdata)
 
     appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]     
 #     st.write(appdata.reset_index())
     appdata=appdata.reset_index().drop(['index'],axis=1)
-    st.write(appdata)
+#     st.write(appdata)
     if not appdata.empty:
-        st.write(appdata)
+#         st.write(appdata)
 
         st.write("Match:",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0])
     #     st.write(":blue[",appdata['team1'][0]," vs ",appdata['team2'][0], " on ",appdata['Date'][0],"]")    
@@ -358,9 +358,10 @@ if select_page==page_list[1]:
 
 
         else:
-            st.write(appdata)
-            st.markdown(":blue[Neither Predictions nor actual data is available]")
-
+#             st.write(appdata)
+            if date<"2023-05-21":
+                st.markdown(":blue[Neither Predictions nor actual data is available]")
+                        
 
     st.header("MODEL 2")        
     # FOR MODEL 2        
