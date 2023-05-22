@@ -526,7 +526,7 @@ if select_page==page_list[1]:
         else:
             st.markdown(":blue[Either Predictions for Model 2(On and after 10th April)  or actual data is not available]")
         
-    st.markdown(":green[Model 3 Coming soon]")
+#     st.markdown(":green[Model 3 Coming soon]")
 
 
     st.header("DATA SOURCE:")
@@ -720,7 +720,7 @@ elif select_page==page_list[0]:
 
         st.write(figure1)
         
-    st.markdown(":green[Model 3 Coming soon]")
+#     st.markdown(":green[Model 3 Coming soon]")
 
 
     st.header("DATA SOURCE:")
