@@ -234,6 +234,7 @@ if select_page==page_list[1]:
     if select_time=='15:30:00':
         timeOfDay='afternoon'
 
+    st.write(appdata)
 
     appdata=appdata[(appdata['Date'].str.contains(select_date)) & (appdata['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]     
