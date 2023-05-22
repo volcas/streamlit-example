@@ -515,7 +515,7 @@ if select_page==page_list[1]:
 
                                 # fig2.update_xaxes(tickangle=290)
                 figure1.update_layout(showlegend=True,font=dict(family="Courier New",size=12,color='Black'),
-                                               title="BARC Model Prediction",
+                                               title="BARC +IPL Data Model Prediction",
                                                xaxis_title="Time of day",
                                                yaxis_title="Concurrency",
                                                width=800,height=500)
