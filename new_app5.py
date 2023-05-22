@@ -356,6 +356,7 @@ if select_page==page_list[1]:
 
 
         else:
+            print(appdata)
             st.markdown(":blue[Neither Predictions nor actual data is available]")
 
 
