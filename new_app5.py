@@ -359,7 +359,7 @@ if select_page==page_list[1]:
 
         else:
 #             st.write(appdata)
-            if date<"2023-05-21":
+            if select_date<"2023-05-21":
                 st.markdown(":blue[Neither Predictions nor actual data is available]")
                         
 
