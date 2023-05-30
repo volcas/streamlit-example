@@ -182,7 +182,7 @@ match_schedule={'2023-03-31': ['19:30:00'],
  '2023-05-23': ['19:30:00'],
  '2023-05-24': ['19:30:00'],
  '2023-05-26': ['19:30:00'],
- '2023-05-28': ['19:30:00']}
+ '2023-05-29': ['19:30:00']}
 
 page_list=['Model Performance at Glance','Date wise model prediction','Minute Model']
 select_page = st.sidebar.selectbox('Select Page',
