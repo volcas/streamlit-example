@@ -381,7 +381,7 @@ if select_page==page_list[1]:
 
     model2_data=model2_data.drop_duplicates('Datetime')
 
-    # st.write(model1_data['Datetime'])
+    st.write(model2_data['Datetime'])
 
 
     # Removing the first match
@@ -408,7 +408,9 @@ if select_page==page_list[1]:
     appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
     # appdata=appdata[appdata['tg_col']==col]                          
     appdata2=appdata2.reset_index().drop(['index'],axis=1)
-    # st.write(appdata2)
+    
+    st.write(appdata2)
+    
     if not appdata2.empty:
 
         st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
@@ -472,7 +474,7 @@ if select_page==page_list[1]:
         appdata2=appdata2[(appdata2['Date'].str.contains(select_date)) & (appdata2['timeOfDay']==timeOfDay)] 
         # appdata=appdata[appdata['tg_col']==col]                          
         appdata2=appdata2.reset_index().drop(['index'],axis=1)
-
+        st.write(appdata2)
         if not appdata2.empty:
 
                 st.write("Match:",appdata2['team1'][0]," vs ",appdata2['team2'][0], " on ",appdata2['Date'][0])
