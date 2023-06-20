@@ -267,8 +267,8 @@ if select_page==page_list[1]:
         #         for inning in ['inning1','inning2']:
         #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
         mape = round(mean_absolute_percentage_error(appdata['Mux'], appdata['Universe_total_prediction']),2)
-        if mape>1:
-            mape = round(mean_absolute_percentage_error(appdata['Universe_total_prediction'], appdata['Mux']),2)
+#         if mape>1:
+#             mape = round(mean_absolute_percentage_error(appdata['Universe_total_prediction'], appdata['Mux']),2)
 
         figure1 =px.line(
                     data_frame =appdata,
@@ -436,8 +436,8 @@ if select_page==page_list[1]:
         #         for inning in ['inning1','inning2']:
         #         new=combined_df[(combined_df['Date']==date) & (combined_df['timeOfDay']==time)]
         mape = round(mean_absolute_percentage_error(appdata2['Mux'], appdata2['Universe_total_prediction']),2)
-        if mape>1:
-            mape = round(mean_absolute_percentage_error(appdata['Universe_total_prediction'], appdata['Mux']),2)
+#         if mape>1:
+#             mape = round(mean_absolute_percentage_error(appdata2['Universe_total_prediction'], appdata2['Mux']),2)
 
         figure1 =px.line(
                     data_frame =appdata2,
